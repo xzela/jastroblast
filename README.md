@@ -1,4 +1,5 @@
-astroblast
+jastroblast
 ==========
+the 'j' is silent
 
-asteroid game clone in libgdx
+asteroid like clone developed in libgdx
