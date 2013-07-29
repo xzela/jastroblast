@@ -1,21 +1,19 @@
 package org.doublelong.jastroblast.entity;
 
+import org.doublelong.jastroblast.controller.ShipController;
 import org.doublelong.jastroblast.renderer.ShipRenderer;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Ship
 {
-	private static final float WIDTH = .75f;
-	private static final float HEIGHT = .5f;
+	private final Space space;
 
-	private final Texture texture;
-	public Texture getTexture() {return this.texture; }
+	private static final float WIDTH = 1.5f;
+	private static final float HEIGHT = 1f;
 
 	private Vector2 position;
 	public Vector2 getPosition() {return this.position; }
@@ -26,21 +24,39 @@ public class Ship
 	public void setBounds(Rectangle bounds) { this.bounds = bounds; }
 
 	public ShipRenderer renderer;
+	public ShipController controller;
 
-	public Ship(Vector2 position)
+	private float rotation = 0;
+	public float getRotation() { return this.rotation; }
+	public void setRotation(float rotation) { this.rotation = rotation;}
+
+	public Ship(Space space)
 	{
-		this.texture = new Texture(Gdx.files.internal("assets/images/player.png"));
-
-		this.position = position;
-		//		this.bounds = new Rectangle(this.position.x, this.position.y, this.texture.getWidth(), this.texture.getHeight());
+		this.space = space;
+		this.position = new Vector2(1f, 1f);
 		this.bounds = new Rectangle(this.position.x, this.position.y, Ship.WIDTH, Ship.HEIGHT);
 
 		this.renderer = new ShipRenderer(this);
+		this.controller = new ShipController(this.space);
 	}
 
 	public void render(SpriteBatch batch, OrthographicCamera cam)
 	{
 		this.renderer.render(batch, cam);
+	}
+
+	public void update(float delta)
+	{
+		//		System.out.println(this.rotation);
+		this.controller.update(delta);
+		if(this.rotation > 360)
+		{
+			this.rotation = 0;
+		}
+		if(this.rotation < 0)
+		{
+			this.rotation = 360;
+		}
 	}
 
 	public void dispose()

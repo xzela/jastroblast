@@ -1,5 +1,6 @@
 package org.doublelong.jastroblast.screen;
 
+import org.doublelong.jastroblast.Inputs;
 import org.doublelong.jastroblast.JastroBlast;
 import org.doublelong.jastroblast.entity.Space;
 
@@ -15,6 +16,8 @@ public class JastroScreen implements Screen
 	private final SpriteBatch batch;
 	private final Space space;
 
+	private final Inputs input;
+
 	public JastroScreen(JastroBlast game)
 	{
 		this.space = new Space(game);
@@ -22,23 +25,30 @@ public class JastroScreen implements Screen
 		this.cam = new OrthographicCamera(Space.WIDTH, Space.HEIGHT);
 		this.cam.setToOrtho(false, Space.WIDTH, Space.HEIGHT);
 
+		this.input = new Inputs(this.space.getShip().controller);
 	}
 
 	@Override
 	public void render(float delta)
 	{
-		// TODO Auto-generated method stub
+		this.cam.update();
+		this.cam.apply(Gdx.gl10);
+		//		this.batch.setProjectionMatrix(this.cam.combined);
+
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
+		this.space.render(this.batch, this.cam);
+
 		this.update(delta);
 
-		this.space.render(this.batch, this.cam);
+
 	}
 
 	public void update(float delta)
 	{
 		this.space.update(delta);
+
 	}
 
 	@Override
@@ -52,7 +62,7 @@ public class JastroScreen implements Screen
 	public void show()
 	{
 		// TODO Auto-generated method stub
-
+		Gdx.input.setInputProcessor(this.input);
 	}
 
 	@Override
