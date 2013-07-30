@@ -30,6 +30,14 @@ public class Ship
 	public float getRotation() { return this.rotation; }
 	public void setRotation(float rotation) { this.rotation = rotation;}
 
+	private Vector2 acceleration = new Vector2();
+	public Vector2 getAcceleration() { return this.acceleration; }
+	public void setAcceleration(Vector2 acceleration) { this.acceleration = acceleration; }
+
+	private Vector2 velocity = new Vector2();
+	public Vector2 getVelocity() { return this.velocity; }
+	public void setVelocity(Vector2 velocity) { this.velocity = velocity; }
+
 	public Ship(Space space)
 	{
 		this.space = space;

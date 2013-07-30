@@ -3,8 +3,10 @@ package org.doublelong.jastroblast.renderer;
 import org.doublelong.jastroblast.entity.Ship;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -14,6 +16,8 @@ public class ShipRenderer
 	private final Texture texture;
 	public final Sprite sprite;
 
+	private final BitmapFont font;
+
 	public ShipRenderer(Ship ship)
 	{
 		this.ship = ship;
@@ -21,13 +25,16 @@ public class ShipRenderer
 		this.sprite = new Sprite(this.texture);
 		this.sprite.setPosition(this.ship.getPosition().x, this.ship.getPosition().y);
 
+		this.font = new BitmapFont();
 	}
 
 	public void render(SpriteBatch batch, OrthographicCamera cam)
 	{
 		//batch.setProjectionMatrix(cam.projection);
 		batch.begin();
-
+		this.font.setColor(Color.GRAY);
+		this.font.draw(batch, "Vel: " + this.ship.getVelocity().toString(), 100f, 20f);
+		this.font.draw(batch, "Acc: " + this.ship.getAcceleration().toString(), 250f, 20f);
 		//		batch.draw(this.sprite,
 		//				this.ship.getPosition().x,
 		//				this.ship.getPosition().y,
