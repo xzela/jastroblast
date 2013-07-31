@@ -33,8 +33,9 @@ public class ShipRenderer
 		//batch.setProjectionMatrix(cam.projection);
 		batch.begin();
 		this.font.setColor(Color.GRAY);
-		this.font.draw(batch, "Vel: " + this.ship.getVelocity().toString(), 100f, 20f);
-		this.font.draw(batch, "Acc: " + this.ship.getAcceleration().toString(), 250f, 20f);
+		this.font.draw(batch, "Pos: " + this.ship.getPosition().toString(), 100f, 60f);
+		this.font.draw(batch, "Vel: " + this.ship.getVelocity().toString(), 100f, 40f);
+		this.font.draw(batch, "Acc: " + this.ship.getAcceleration().toString(), 100f, 20f);
 		//		batch.draw(this.sprite,
 		//				this.ship.getPosition().x,
 		//				this.ship.getPosition().y,
