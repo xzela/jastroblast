@@ -23,6 +23,7 @@ public class ShipRenderer
 		this.ship = ship;
 		this.texture = new Texture(Gdx.files.internal("assets/images/player.png"));
 		this.sprite = new Sprite(this.texture);
+		this.sprite.setBounds(this.ship.getPosition().x, this.ship.getPosition().y, this.ship.getBounds().width, this.ship.getBounds().height);
 		this.sprite.setPosition(this.ship.getPosition().x, this.ship.getPosition().y);
 
 		this.font = new BitmapFont();
@@ -30,19 +31,16 @@ public class ShipRenderer
 
 	public void render(SpriteBatch batch, OrthographicCamera cam)
 	{
-		//batch.setProjectionMatrix(cam.projection);
+		//
 		batch.begin();
 		this.font.setColor(Color.GRAY);
 		this.font.draw(batch, "Pos: " + this.ship.getPosition().toString(), 100f, 60f);
 		this.font.draw(batch, "Vel: " + this.ship.getVelocity().toString(), 100f, 40f);
 		this.font.draw(batch, "Acc: " + this.ship.getAcceleration().toString(), 100f, 20f);
-		//		batch.draw(this.sprite,
-		//				this.ship.getPosition().x,
-		//				this.ship.getPosition().y,
-		//				this.ship.getBounds().width,
-		//				this.ship.getBounds().height
-		//				);
+
+		// rotate the sprite when needed
 		this.sprite.setRotation(this.ship.getRotation());
+
 		this.sprite.draw(batch);
 
 		batch.end();

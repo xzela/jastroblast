@@ -41,8 +41,8 @@ public class Ship
 	public Ship(Space space)
 	{
 		this.space = space;
-		this.position = new Vector2(1f, 1f);
-		this.bounds = new Rectangle(this.position.x, this.position.y, Ship.WIDTH, Ship.HEIGHT);
+		this.position = new Vector2(1f * this.space.ppuX, 1f * this.space.ppuY);
+		this.bounds = new Rectangle(this.position.x, this.position.y, Ship.WIDTH * this.space.ppuX, Ship.HEIGHT * this.space.ppuY);
 
 		this.renderer = new ShipRenderer(this);
 		this.controller = new ShipController(this.space);
@@ -55,7 +55,6 @@ public class Ship
 
 	public void update(float delta)
 	{
-		//		System.out.println(this.rotation);
 		this.controller.update(delta);
 		if(this.rotation > 360)
 		{

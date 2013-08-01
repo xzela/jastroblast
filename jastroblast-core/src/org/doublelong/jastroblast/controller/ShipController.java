@@ -9,7 +9,7 @@ public class ShipController
 {
 	private static final float DAMP = .991f;
 	private static final float MAX_VELOCITY = 2.5f;
-	private static final float SPEED = 1f;
+	private static final float SPEED = 1.1f;
 
 	enum Keys {LEFT, RIGHT, UP, DOWN}
 	static Map<Keys, Boolean> keys = new HashMap<ShipController.Keys, Boolean>();
