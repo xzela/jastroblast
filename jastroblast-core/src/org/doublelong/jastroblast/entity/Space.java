@@ -1,5 +1,9 @@
 package org.doublelong.jastroblast.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import org.doublelong.jastroblast.JastroBlast;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,8 +20,7 @@ public class Space
 	private final Ship ship;
 	public Ship getShip() { return this.ship; }
 
-	private final Asteroid asteroid;
-	private final Asteroid asteroid2;
+	private final List<Asteroid> asteroids;
 
 	public final float ppuX;
 	public final float ppuY;
@@ -29,28 +32,47 @@ public class Space
 		this.ppuX = ppuX;
 		this.ppuY = ppuY;
 		this.ship = new Ship(this);
-		this.asteroid =  new Asteroid(this, new Vector2(4f * this.ppuX, 4f * this.ppuY));
-		this.asteroid2 =  new Asteroid(this, new Vector2(5f * this.ppuX, 7f * this.ppuY));
+		this.asteroids = this.generateAsteroids(3);
 	}
 
 	public void render(SpriteBatch batch, OrthographicCamera cam)
 	{
 		this.ship.render(batch, cam);
-		this.asteroid.render(batch, cam);
-		this.asteroid2.render(batch, cam);
+		for(Asteroid a : this.asteroids)
+		{
+			a.render(batch, cam);
+		}
 	}
 
 	public void update(float delta)
 	{
 		this.ship.update(delta);
-		this.asteroid.update(delta);
-		this.asteroid2.update(delta);
+		for(Asteroid a : this.asteroids)
+		{
+			a.update(delta);
+		}
 	}
 
 	public void dispose()
 	{
 		this.ship.dispose();
-		this.asteroid.dispose();
-		this.asteroid2.dispose();
+		for(Asteroid a : this.asteroids)
+		{
+			a.dispose();
+		}
+	}
+
+	private List<Asteroid> generateAsteroids(int num)
+	{
+		Random r = new Random();
+		List<Asteroid> temp = new ArrayList<Asteroid>();
+		for(int i = 0; i < num; i++)
+		{
+			float x = r.nextInt((int)(this.ppuX * WIDTH - 50)) + 1;
+			float y = r.nextInt((int)(this.ppuY * HEIGHT - 50)) + 1;
+			Asteroid a = new Asteroid(this, new Vector2(x, y));
+			temp.add(a);
+		}
+		return temp;
 	}
 }
