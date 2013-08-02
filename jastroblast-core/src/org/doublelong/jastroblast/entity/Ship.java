@@ -12,8 +12,8 @@ public class Ship
 {
 	private final Space space;
 
-	private static final float WIDTH = 1.5f;
-	private static final float HEIGHT = 1f;
+	private static final float WIDTH = 100f;
+	private static final float HEIGHT = 76f;
 
 	private Vector2 position;
 	public Vector2 getPosition() {return this.position; }
@@ -42,7 +42,7 @@ public class Ship
 	{
 		this.space = space;
 		this.position = new Vector2(1f * this.space.ppuX, 1f * this.space.ppuY);
-		this.bounds = new Rectangle(this.position.x, this.position.y, Ship.WIDTH * this.space.ppuX, Ship.HEIGHT * this.space.ppuY);
+		this.bounds = new Rectangle(this.position.x, this.position.y, Ship.WIDTH, Ship.HEIGHT);
 
 		this.renderer = new ShipRenderer(this);
 		this.controller = new ShipController(this.space);

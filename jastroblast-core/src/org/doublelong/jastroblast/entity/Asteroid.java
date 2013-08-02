@@ -12,10 +12,14 @@ public class Asteroid
 
 	private final Space space;
 
+	private static final float WIDTH = 136f;
+	private static final float HEIGHT = 111f;
+
+
 	private final Vector2 position;
 	public Vector2 getPosition() { return this.position; }
 
-	private Rectangle bounds;
+	private final Rectangle bounds;
 	public Rectangle getBounds() { return this.bounds; }
 
 	private float angle;
@@ -31,6 +35,8 @@ public class Asteroid
 	{
 		this.space = space;
 		this.position = position;
+		this.bounds = new Rectangle(this.position.x, this.position.y, Asteroid.WIDTH, Asteroid.HEIGHT);
+
 		this.spin = (float) Math.random() * 100;
 		this.direction = -1; //new Random().nextBoolean() ? 1 : -1;
 

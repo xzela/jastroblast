@@ -32,9 +32,12 @@ public class AsteroidRenderer
 
 	public void render(SpriteBatch batch, OrthographicCamera cam)
 	{
+		float debug_x = this.asteroid.getPosition().x + this.asteroid.getBounds().width;
+		float debug_y = this.asteroid.getPosition().y + this.asteroid.getBounds().width;
+
 		batch.begin();
 		this.font.setColor(Color.LIGHT_GRAY);
-		this.font.draw(batch, "Pos: " + this.asteroid.getPosition().toString(), 250f, 60f);
+		this.font.draw(batch, "Pos: " + this.asteroid.getPosition().toString(), debug_x, debug_y);
 
 		this.sprite.setRotation(this.asteroid.getAngle());
 		this.sprite.draw(batch);

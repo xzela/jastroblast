@@ -31,12 +31,13 @@ public class ShipRenderer
 
 	public void render(SpriteBatch batch, OrthographicCamera cam)
 	{
+		float debug_x = this.ship.getPosition().x + this.ship.getBounds().width;
+		float debug_y = this.ship.getPosition().y + this.ship.getBounds().width;
 		//
 		batch.begin();
 		this.font.setColor(Color.GRAY);
-		this.font.draw(batch, "Pos: " + this.ship.getPosition().toString(), 100f, 60f);
-		this.font.draw(batch, "Vel: " + this.ship.getVelocity().toString(), 100f, 40f);
-		this.font.draw(batch, "Acc: " + this.ship.getAcceleration().toString(), 100f, 20f);
+		this.font.draw(batch, "Pos: " + this.ship.getPosition().toString(), debug_x, debug_y);
+		this.font.draw(batch, "Vel: " + this.ship.getVelocity().toString(), debug_x, debug_y - 20);
 
 		// rotate the sprite when needed
 		this.sprite.setRotation(this.ship.getRotation());
