@@ -34,6 +34,7 @@ public class AsteroidRenderer
 	{
 		float debug_x = this.asteroid.getPosition().x + this.asteroid.getBounds().width;
 		float debug_y = this.asteroid.getPosition().y + this.asteroid.getBounds().width;
+		this.sprite.setPosition(this.asteroid.getPosition().x, this.asteroid.getPosition().y);
 
 		batch.begin();
 		this.font.setColor(Color.LIGHT_GRAY);
@@ -43,10 +44,32 @@ public class AsteroidRenderer
 		this.sprite.draw(batch);
 
 		batch.end();
+
+		this.wrap();
 	}
 
+	private void wrap()
+	{
+		if(this.asteroid.getPosition().x < -this.sprite.getWidth())
+		{
+			this.asteroid.getPosition().x = 600 + this.sprite.getWidth() / 2;
+		}
+		else if (this.asteroid.getPosition().x > 600 + this.sprite.getWidth() - 10)
+		{
+			this.asteroid.getPosition().x = 0 - this.sprite.getWidth() / 2;
+		}
+
+		if (this.asteroid.getPosition().y < -this.sprite.getHeight())
+		{
+			this.asteroid.getPosition().y = 599;
+		}
+		else if(this.asteroid.getPosition().y > 600)
+		{
+			this.asteroid.getPosition().y = 0 - this.sprite.getHeight();
+		}
+	}
 	public void dispose()
 	{
-
+		this.texture.dispose();
 	}
 }
