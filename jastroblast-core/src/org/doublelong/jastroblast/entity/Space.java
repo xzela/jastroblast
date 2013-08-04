@@ -21,6 +21,7 @@ public class Space
 	public Ship getShip() { return this.ship; }
 
 	private final List<Asteroid> asteroids;
+	public List<Asteroid> getAsteroids() { return this.asteroids; }
 
 	public final float ppuX;
 	public final float ppuY;

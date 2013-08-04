@@ -1,5 +1,7 @@
 package org.doublelong.jastroblast.entity;
 
+import java.util.List;
+
 import org.doublelong.jastroblast.controller.ShipController;
 import org.doublelong.jastroblast.renderer.ShipRenderer;
 
@@ -64,6 +66,15 @@ public class Ship
 		if(this.rotation < 0)
 		{
 			this.rotation = 360;
+		}
+
+		List<Asteroid> list = this.space.getAsteroids();
+		for (Asteroid a: list)
+		{
+			if(this.renderer.sprite.getBoundingRectangle().overlaps(a.renderer.sprite.getBoundingRectangle()))
+			{
+				System.out.println("Hitting astroid");
+			}
 		}
 	}
 

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class AsteroidRenderer extends BaseRenderer
 {
@@ -30,16 +31,26 @@ public class AsteroidRenderer extends BaseRenderer
 		float debug_x = this.asteroid.getPosition().x + this.asteroid.getBounds().width;
 		float debug_y = this.asteroid.getPosition().y + this.asteroid.getBounds().width;
 		this.sprite.setPosition(this.asteroid.getPosition().x, this.asteroid.getPosition().y);
+		if (this.debug)
+		{
+			this.debugRenderer.begin(ShapeType.Rectangle);
+			this.debugRenderer.setColor(Color.RED);
+			this.debugRenderer.rect(this.asteroid.getPosition().x, this.asteroid.getPosition().y, this.asteroid.getBounds().width, this.asteroid.getBounds().height);
+			this.debugRenderer.end();
+		}
 
 		batch.begin();
-		this.font.setColor(Color.LIGHT_GRAY);
-		this.font.draw(batch, "Pos: " + this.format.format(this.asteroid.getPosition().x) + " : " + this.format.format(this.asteroid.getPosition().y), debug_x, debug_y);
-		this.font.draw(batch, "Ang: " + this.format.format(this.asteroid.getAngle()), debug_x, debug_y - 20);
+		if (this.debug)
+		{
+			this.font.setColor(Color.LIGHT_GRAY);
+			this.font.draw(batch, "Pos: " + this.format.format(this.asteroid.getPosition().x) + " : " + this.format.format(this.asteroid.getPosition().y), debug_x, debug_y);
+			this.font.draw(batch, "Ang: " + this.format.format(this.asteroid.getAngle()), debug_x, debug_y - 20);
+		}
 
 		this.sprite.setRotation(this.asteroid.getAngle());
 		this.sprite.draw(batch);
-
 		batch.end();
+
 
 		this.wrap();
 	}
