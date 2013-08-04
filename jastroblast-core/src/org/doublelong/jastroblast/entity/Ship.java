@@ -41,10 +41,13 @@ public class Ship
 	public Vector2 getVelocity() { return this.velocity; }
 	public void setVelocity(Vector2 velocity) { this.velocity = velocity; }
 
+	public Vector2 ppu;
+
 	public Ship(Space space)
 	{
 		this.space = space;
-		this.position = new Vector2(1f * this.space.ppuX, 1f * this.space.ppuY);
+		this.ppu = new Vector2(this.space.ppuX, this.space.ppuY);
+		this.position = new Vector2(this.space.ppuX, this.space.ppuY);
 		this.bounds = new Rectangle(this.position.x, this.position.y, Ship.WIDTH, Ship.HEIGHT);
 
 		this.renderer = new ShipRenderer(this);
