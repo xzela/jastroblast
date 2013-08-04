@@ -57,6 +57,14 @@ public class Asteroid
 	public void update(float delta)
 	{
 		//System.out.println(this.angle);
+		if (Math.abs(this.angle) > 360)
+		{
+			this.angle = 0;
+		}
+		if(Math.abs(this.angle) < 0)
+		{
+			this.angle = 360 * this.direction;
+		}
 		this.angle += this.direction * this.spin * delta;
 		//this.setAngle(this.direction * this.spin * delta);
 
