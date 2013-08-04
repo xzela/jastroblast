@@ -23,13 +23,14 @@ public class ShipRenderer extends BaseRenderer
 		this.ship = ship;
 		this.texture = new Texture(Gdx.files.internal("assets/images/player.png"));
 		this.sprite = new Sprite(this.texture);
-		this.sprite.setBounds(this.ship.getPosition().x, this.ship.getPosition().y, this.ship.getBounds().width, this.ship.getBounds().height);
-		this.sprite.setPosition(this.ship.getPosition().x, this.ship.getPosition().y);
 
 	}
 
 	public void render(SpriteBatch batch, OrthographicCamera cam)
 	{
+		this.sprite.setBounds(this.ship.getPosition().x, this.ship.getPosition().y, this.ship.getBounds().width, this.ship.getBounds().height);
+		this.sprite.setPosition(this.ship.getPosition().x, this.ship.getPosition().y);
+
 		float debug_x = this.ship.getPosition().x + this.ship.getBounds().width;
 		float debug_y = this.ship.getPosition().y + this.ship.getBounds().width;
 
@@ -37,7 +38,7 @@ public class ShipRenderer extends BaseRenderer
 		{
 			this.debugRenderer.begin(ShapeType.Rectangle);
 			this.debugRenderer.setColor(Color.RED);
-			this.debugRenderer.rect(this.ship.getPosition().x, this.ship.getPosition().y, this.ship.getBounds().width, this.ship.getBounds().height);
+			this.debugRenderer.rect(this.sprite.getBoundingRectangle().x, this.sprite.getBoundingRectangle().y, this.sprite.getBoundingRectangle().width, this.sprite.getBoundingRectangle().height);
 			this.debugRenderer.end();
 		}
 

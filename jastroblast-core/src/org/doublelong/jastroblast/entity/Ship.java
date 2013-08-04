@@ -74,6 +74,11 @@ public class Ship
 			if(this.renderer.sprite.getBoundingRectangle().overlaps(a.renderer.sprite.getBoundingRectangle()))
 			{
 				System.out.println("Hitting astroid");
+				a.renderer.debugHit = true;
+			}
+			else
+			{
+				a.renderer.debugHit = false;
 			}
 		}
 	}
