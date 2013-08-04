@@ -1,22 +1,21 @@
 package org.doublelong.jastroblast.renderer;
 
+
 import org.doublelong.jastroblast.entity.Ship;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class ShipRenderer
+public class ShipRenderer extends BaseRenderer
 {
 	private final Ship ship;
 	private final Texture texture;
 	public final Sprite sprite;
 
-	private final BitmapFont font;
 
 	public ShipRenderer(Ship ship)
 	{
@@ -26,7 +25,6 @@ public class ShipRenderer
 		this.sprite.setBounds(this.ship.getPosition().x, this.ship.getPosition().y, this.ship.getBounds().width, this.ship.getBounds().height);
 		this.sprite.setPosition(this.ship.getPosition().x, this.ship.getPosition().y);
 
-		this.font = new BitmapFont();
 	}
 
 	public void render(SpriteBatch batch, OrthographicCamera cam)
@@ -35,9 +33,9 @@ public class ShipRenderer
 		float debug_y = this.ship.getPosition().y + this.ship.getBounds().width;
 		//
 		batch.begin();
-		this.font.setColor(Color.GRAY);
-		this.font.draw(batch, "Pos: " + this.ship.getPosition().toString(), debug_x, debug_y);
-		this.font.draw(batch, "Vel: " + this.ship.getVelocity().toString(), debug_x, debug_y - 20);
+		this.font.setColor(Color.RED);
+		this.font.draw(batch, "Pos: " + this.format.format(this.ship.getPosition().x) + " : " + this.format.format(this.ship.getPosition().y), debug_x, debug_y);
+		this.font.draw(batch, "Vel: " + this.format.format(this.ship.getVelocity().x) + " : " + this.format.format(this.ship.getVelocity().y), debug_x, debug_y - 20);
 
 		// rotate the sprite when needed
 		this.sprite.setRotation(this.ship.getRotation());

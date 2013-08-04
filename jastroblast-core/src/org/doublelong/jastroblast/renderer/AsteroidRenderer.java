@@ -6,16 +6,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class AsteroidRenderer
+public class AsteroidRenderer extends BaseRenderer
 {
 
 	private final Asteroid asteroid;
 	private final Texture texture;
-	private final BitmapFont font;
 
 	public final Sprite sprite;
 
@@ -25,9 +23,6 @@ public class AsteroidRenderer
 		this.texture = new Texture(Gdx.files.internal("assets/images/asteriod_big.png"));
 		this.sprite = new Sprite(this.texture);
 		this.sprite.setPosition(this.asteroid.getPosition().x, this.asteroid.getPosition().y);
-
-
-		this.font = new BitmapFont();
 	}
 
 	public void render(SpriteBatch batch, OrthographicCamera cam)
@@ -38,7 +33,8 @@ public class AsteroidRenderer
 
 		batch.begin();
 		this.font.setColor(Color.LIGHT_GRAY);
-		this.font.draw(batch, "Pos: " + this.asteroid.getPosition().toString(), debug_x, debug_y);
+		this.font.draw(batch, "Pos: " + this.format.format(this.asteroid.getPosition().x) + " : " + this.format.format(this.asteroid.getPosition().y), debug_x, debug_y);
+		this.font.draw(batch, "Ang: " + this.format.format(this.asteroid.getAngle()), debug_x, debug_y - 20);
 
 		this.sprite.setRotation(this.asteroid.getAngle());
 		this.sprite.draw(batch);
