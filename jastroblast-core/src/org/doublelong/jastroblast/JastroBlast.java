@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 public class JastroBlast extends Game
 {
 	public final String WINDOW_TITLE = "jAstroBlast";
+	public final int WINDOW_WIDTH = 800;
 	public final int WINDOW_HEIGHT = 600;
-	public final int WINDOW_WIDTH = WINDOW_HEIGHT / 9 * 10;
 
 	private JastroScreen jastroScreen;
 

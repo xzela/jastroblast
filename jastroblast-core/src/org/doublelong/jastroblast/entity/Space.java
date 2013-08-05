@@ -8,6 +8,7 @@ import org.doublelong.jastroblast.JastroBlast;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Space
@@ -26,6 +27,7 @@ public class Space
 	public final float ppuX;
 	public final float ppuY;
 
+	public Rectangle viewport;
 
 	public Space(JastroBlast game, float ppuX, float ppuY)
 	{
@@ -41,7 +43,7 @@ public class Space
 		this.ship.render(batch, cam);
 		for(Asteroid a : this.asteroids)
 		{
-			a.render(batch, cam);
+			//a.render(batch, cam);
 		}
 	}
 
@@ -50,7 +52,7 @@ public class Space
 		this.ship.update(delta);
 		for(Asteroid a : this.asteroids)
 		{
-			a.update(delta);
+			//a.update(delta);
 		}
 	}
 

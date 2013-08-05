@@ -48,7 +48,7 @@ public class ShipController
 
 		this.space.getShip().renderer.sprite.setPosition(this.space.getShip().getPosition().x, this.space.getShip().getPosition().y);
 
-		this.wrap();
+		//this.wrap();
 	}
 
 	public void processInput(float delta)
@@ -105,20 +105,23 @@ public class ShipController
 
 	private void wrap()
 	{
+		// check the viewport width
+		//
 		if(this.space.getShip().getPosition().x < -this.space.getShip().renderer.sprite.getWidth())
 		{
-			this.space.getShip().getPosition().x = 600 + this.space.getShip().renderer.sprite.getWidth() / 2;
+			this.space.getShip().getPosition().x = this.space.viewport.width + this.space.getShip().renderer.sprite.getWidth() / 2;
 		}
-		else if (this.space.getShip().getPosition().x > 600 + this.space.getShip().renderer.sprite.getWidth() - 10)
+		else if (this.space.getShip().getPosition().x > this.space.viewport.width + this.space.getShip().renderer.sprite.getWidth() - 10)
 		{
 			this.space.getShip().getPosition().x = 0 - this.space.getShip().renderer.sprite.getWidth() / 2;
 		}
 
+		// check the viewport height
 		if (this.space.getShip().getPosition().y < -this.space.getShip().renderer.sprite.getHeight())
 		{
-			this.space.getShip().getPosition().y = 599;
+			this.space.getShip().getPosition().y = this.space.viewport.height;
 		}
-		else if(this.space.getShip().getPosition().y > 600)
+		else if(this.space.getShip().getPosition().y > this.space.viewport.height)
 		{
 			this.space.getShip().getPosition().y = 0 - this.space.getShip().renderer.sprite.getHeight();
 		}
