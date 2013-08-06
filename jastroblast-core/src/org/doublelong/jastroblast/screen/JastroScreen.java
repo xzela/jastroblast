@@ -6,12 +6,10 @@ import org.doublelong.jastroblast.entity.Space;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -66,18 +64,6 @@ public class JastroScreen implements Screen
 		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
-
-
-		this.debugRenderer.setProjectionMatrix(this.cam.combined);
-		this.debugRenderer.begin(ShapeType.Rectangle);
-		this.debugRenderer.setColor(Color.BLUE);
-		this.debugRenderer.identity();
-		this.debugRenderer.translate(5, 5, 1f);
-		this.debugRenderer.rotate(0, 0, 1, this.i);
-		this.debugRenderer.rect(-10, -10, 20, 20);
-		this.debugRenderer.end();
-
-		this.i++;
 		this.space.render(this.batch, this.cam);
 		this.update(delta);
 	}
