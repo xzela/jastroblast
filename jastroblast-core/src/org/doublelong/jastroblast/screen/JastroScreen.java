@@ -6,9 +6,12 @@ import org.doublelong.jastroblast.entity.Space;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -22,7 +25,7 @@ public class JastroScreen implements Screen
 
 	public Rectangle viewport;
 
-	private final OrthographicCamera cam;
+	private OrthographicCamera cam;
 	private final SpriteBatch batch;
 	private final Space space;
 
@@ -30,9 +33,9 @@ public class JastroScreen implements Screen
 	public final float ppuX;
 	public final float ppuY;
 
-	//	public ShapeRenderer debugRenderer = new ShapeRenderer();
-	//
-	//	public int i;
+	public ShapeRenderer debugRenderer = new ShapeRenderer();
+
+	public int i;
 
 	public JastroScreen(JastroBlast game)
 	{
@@ -55,7 +58,7 @@ public class JastroScreen implements Screen
 	{
 		this.space.viewport = this.viewport;
 		this.cam.update();
-		//this.batch.setProjectionMatrix(this.cam.combined);
+		this.batch.setProjectionMatrix(this.cam.combined);
 		this.cam.apply(Gdx.gl10);
 
 		Gdx.gl.glViewport((int)this.viewport.x, (int)this.viewport.y, (int)this.viewport.width, (int)this.viewport.height);
@@ -65,16 +68,16 @@ public class JastroScreen implements Screen
 
 
 
-		//		this.debugRenderer.setProjectionMatrix(this.cam.combined);
-		//		this.debugRenderer.begin(ShapeType.Rectangle);
-		//		this.debugRenderer.setColor(Color.BLUE);
-		//		this.debugRenderer.identity();
-		//		//		this.debugRenderer.translate(20, 20, 2f);
-		//		this.debugRenderer.rotate(0, 0, 1, this.i);
-		//		this.debugRenderer.rect(-10, -10, 20, 20);
-		//		this.debugRenderer.end();
-		//
-		//		this.i++;
+		this.debugRenderer.setProjectionMatrix(this.cam.combined);
+		this.debugRenderer.begin(ShapeType.Rectangle);
+		this.debugRenderer.setColor(Color.BLUE);
+		this.debugRenderer.identity();
+		this.debugRenderer.translate(5, 5, 1f);
+		this.debugRenderer.rotate(0, 0, 1, this.i);
+		this.debugRenderer.rect(-10, -10, 20, 20);
+		this.debugRenderer.end();
+
+		this.i++;
 		this.space.render(this.batch, this.cam);
 		this.update(delta);
 	}
@@ -110,8 +113,8 @@ public class JastroScreen implements Screen
 		float h = VIRTUAL_HEIGHT * scale;
 
 		this.viewport = new Rectangle(crop.x, crop.y, w, h);
-		this.cam.translate(this.viewport.width / 2, this.viewport.height / 2, 0);
-		// this.cam = new OrthographicCamera(width, height);
+		//this.cam.translate(this.viewport.width / 2, this.viewport.height / 2, 0);
+		this.cam = new OrthographicCamera(this.viewport.width / 2,  this.viewport.height / 2);
 	}
 
 	@Override

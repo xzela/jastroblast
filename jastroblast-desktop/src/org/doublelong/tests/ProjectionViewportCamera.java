@@ -4,39 +4,21 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.Mesh;
-import com.badlogic.gdx.graphics.VertexAttribute;
-import com.badlogic.gdx.graphics.VertexAttributes.Usage;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
-public class ProjectionViewportCamera implements ApplicationListener {
-	private Mesh squarePartOne;
-	private Mesh squarePartTwo;
+public class ProjectionViewportCamera implements ApplicationListener
+{
+	private OrthographicCamera camera;
+	private ShapeRenderer renderer;
+
+	private int i;
 
 	@Override
-	public void create() {
-		if (squarePartOne == null) {
-			squarePartOne = new Mesh(true, 3, 3,
-					new VertexAttribute(Usage.Position, 3, "a_position"),
-					new VertexAttribute(Usage.ColorPacked, 4, "a_color"));
-
-			squarePartOne.setVertices(new float[] {
-					-0.5f, -0.5f, 0, Color.toFloatBits(128, 0, 0, 255),
-					0.5f, -0.5f, 0, Color.toFloatBits(192, 0, 0, 255),
-					-0.5f, 0.5f, 0, Color.toFloatBits(192, 0, 0, 255) });
-			squarePartOne.setIndices(new short[] { 0, 1, 2});
-		}
-
-		if (squarePartTwo == null) {
-			squarePartTwo = new Mesh(true, 3, 3,
-					new VertexAttribute(Usage.Position, 3, "a_position"),
-					new VertexAttribute(Usage.ColorPacked, 4, "a_color"));
-
-			squarePartTwo.setVertices(new float[] {
-					0.5f, -0.5f, 0, Color.toFloatBits(192, 0, 0, 255),
-					-0.5f, 0.5f, 0, Color.toFloatBits(192, 0, 0, 255),
-					0.5f, 0.5f, 0, Color.toFloatBits(255, 0, 0, 255) });
-			squarePartTwo.setIndices(new short[] { 0, 1, 2});
-		}
+	public void create()
+	{
+		renderer = new ShapeRenderer();
 	}
 
 	@Override
@@ -46,14 +28,33 @@ public class ProjectionViewportCamera implements ApplicationListener {
 	public void pause() { }
 
 	@Override
-	public void render() {
+	public void render()
+	{
+		camera.update();
+		camera.apply(Gdx.gl10);
+
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		squarePartOne.render(GL10.GL_TRIANGLES, 0, 3);
-		squarePartTwo.render(GL10.GL_TRIANGLES, 0, 3);
+
+		this.renderer.setProjectionMatrix(camera.combined);
+		this.renderer.begin(ShapeType.Rectangle);
+		this.renderer.setColor(Color.BLUE);
+		this.renderer.identity();
+		this.renderer.translate(.25f, .25f, 0f);
+		this.renderer.rotate(0, 0, 1, this.i);
+
+		this.renderer.rect(-.25f / 2, -.25f / 2, .25f, .25f);
+
+
+		this.renderer.end();
+		i++;
 	}
 
 	@Override
-	public void resize(int width, int height) { }
+	public void resize(int width, int height)
+	{
+		float aspectRatio = (float) width / (float) height;
+		camera = new OrthographicCamera(2f * aspectRatio, 2f);
+	}
 
 	@Override
 	public void resume() { }

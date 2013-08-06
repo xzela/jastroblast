@@ -9,10 +9,6 @@ public class DesktopGame
 	{
 		JastroBlast game = new JastroBlast();
 		new LwjglApplication(game, game.WINDOW_TITLE, game.WINDOW_WIDTH, game.WINDOW_HEIGHT, false);
-		//		ProjectionViewportCamera game = new ProjectionViewportCamera();
-		//		new LwjglApplication(game);
-
-
 	}
 
 }
