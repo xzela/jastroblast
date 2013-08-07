@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 
 public class BaseRenderer
 {
@@ -17,6 +18,9 @@ public class BaseRenderer
 
 	protected final BitmapFont font;
 	protected final NumberFormat format;
+
+	public Rectangle bb = new Rectangle();
+	public Rectangle hb = new Rectangle();
 
 	public boolean debugHit = false;
 

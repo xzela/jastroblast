@@ -74,7 +74,7 @@ public class Ship
 		List<Asteroid> list = this.space.getAsteroids();
 		for (Asteroid a: list)
 		{
-			if(this.renderer.sprite.getBoundingRectangle().overlaps(a.renderer.sprite.getBoundingRectangle()))
+			if(this.renderer.hb.overlaps(a.renderer.hb))
 			{
 				System.out.println("Hitting astroid");
 				a.renderer.debugHit = true;

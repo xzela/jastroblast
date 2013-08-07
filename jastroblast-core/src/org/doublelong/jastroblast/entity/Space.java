@@ -43,7 +43,7 @@ public class Space
 		this.ship.render(batch, cam);
 		for(Asteroid a : this.asteroids)
 		{
-			//a.render(batch, cam);
+			a.render(batch, cam);
 		}
 	}
 
@@ -52,7 +52,7 @@ public class Space
 		this.ship.update(delta);
 		for(Asteroid a : this.asteroids)
 		{
-			//a.update(delta);
+			a.update(delta);
 		}
 	}
 

@@ -56,15 +56,16 @@ public class JastroScreen implements Screen
 	{
 		this.space.viewport = this.viewport;
 		this.cam.update();
-		this.batch.setProjectionMatrix(this.cam.combined);
-		this.cam.apply(Gdx.gl10);
 
 		Gdx.gl.glViewport((int)this.viewport.x, (int)this.viewport.y, (int)this.viewport.width, (int)this.viewport.height);
-
 		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		this.cam.apply(Gdx.gl10);
+
+		this.batch.setProjectionMatrix(this.cam.combined);
 
 		this.space.render(this.batch, this.cam);
+
 		this.update(delta);
 	}
 

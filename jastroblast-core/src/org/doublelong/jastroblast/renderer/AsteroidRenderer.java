@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Rectangle;
 
 public class AsteroidRenderer extends BaseRenderer
 {
@@ -29,22 +28,26 @@ public class AsteroidRenderer extends BaseRenderer
 
 	public void render(SpriteBatch batch, OrthographicCamera cam)
 	{
+		this.sprite.setScale(.5f, .5f);
+		this.font.setScale(.5f, .5f);
+
 		float debug_x = this.asteroid.getPosition().x + this.asteroid.getBounds().width;
 		float debug_y = this.asteroid.getPosition().y + this.asteroid.getBounds().width;
 		this.sprite.setPosition(this.asteroid.getPosition().x, this.asteroid.getPosition().y);
 
+		this.bb = this.asteroid.renderer.sprite.getBoundingRectangle();
+
 		if (this.debug)
 		{
-			Rectangle r = this.asteroid.renderer.sprite.getBoundingRectangle();
 			if (this.debugHit)
 			{
 				this.debugRenderer.begin(ShapeType.FilledRectangle);
-				this.debugRenderer.filledRect(r.x, r.y, r.width, r.height);
+				this.debugRenderer.filledRect(this.bb.x, this.bb.y, this.bb.width, this.bb.height);
 			}
 			else
 			{
 				this.debugRenderer.begin(ShapeType.Rectangle);
-				this.debugRenderer.rect(r.x, r.y, r.width, r.height);
+				this.debugRenderer.rect(this.bb.x, this.bb.y, this.bb.width, this.bb.height);
 			}
 			this.debugRenderer.end();
 		}

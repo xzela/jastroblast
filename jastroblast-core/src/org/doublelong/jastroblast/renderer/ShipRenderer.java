@@ -30,17 +30,21 @@ public class ShipRenderer extends BaseRenderer
 
 	public void render(SpriteBatch batch, OrthographicCamera cam)
 	{
+		this.sprite.setScale(.5f, .5f);
+		this.font.setScale(.5f, .5f);
+
 		//this.sprite.setBounds(this.ship.getPosition().x, this.ship.getPosition().y, this.ship.getBounds().width, this.ship.getBounds().height);
-		this.sprite.setBounds(this.ship.getPosition().x, this.ship.getPosition().y, this.texture.getWidth(), this.texture.getHeight());
+		this.sprite.setBounds(this.ship.getPosition().x, this.ship.getPosition().y, this.sprite.getWidth(), this.sprite.getHeight());
 		this.sprite.setPosition(this.ship.getPosition().x, this.ship.getPosition().y);
 
 		float debug_x = this.ship.getPosition().x + this.ship.getBounds().width;
 		float debug_y = this.ship.getPosition().y + this.ship.getBounds().width;
-		Rectangle bb = this.sprite.getBoundingRectangle();
-		this.r.x = this.sprite.getX();
-		this.r.y = this.sprite.getY();
-		this.r.width =  this.sprite.getWidth();
-		this.r.height = this.sprite.getHeight();
+		this.bb = this.sprite.getBoundingRectangle();
+		//set the hittible bounds and position
+		this.hb.x = this.sprite.getX();
+		this.hb.y = this.sprite.getY();
+		this.hb.width =  this.sprite.getWidth() * this.sprite.getScaleX();
+		this.hb.height = this.sprite.getHeight() * this.sprite.getScaleY();
 
 
 		if (this.debug)
@@ -51,18 +55,13 @@ public class ShipRenderer extends BaseRenderer
 			this.debugRenderer.setColor(Color.RED);
 			this.debugRenderer.rect(bb.x, bb.y, bb.width, bb.height);
 			this.debugRenderer.end();
-			float x = this.sprite.getX();
-			float y = this.sprite.getY();
-			float width = this.sprite.getWidth();
-			float height = this.sprite.getHeight();
-
 
 			this.debugRenderer.begin(ShapeType.Rectangle);
 			this.debugRenderer.setColor(Color.BLUE);
 			this.debugRenderer.identity();
-			this.debugRenderer.translate(this.r.x + this.r.width / 2, this.r.y + this.r.height / 2, 0f);
+			this.debugRenderer.translate(this.hb.x + this.hb.width, this.hb.y + this.hb.height, 0f);
 			this.debugRenderer.rotate(0, 0, 1, this.ship.getRotation());
-			this.debugRenderer.rect(-this.r.width / 2, -this.r.height / 2, this.r.width, this.r.height);
+			this.debugRenderer.rect(-this.hb.width / 2, -this.hb.height / 2, this.hb.width, this.hb.height);
 			//this.debugRenderer.rect(this.r.x, this.r.y, this.r.width, this.r.height);
 			this.debugRenderer.end();
 		}
