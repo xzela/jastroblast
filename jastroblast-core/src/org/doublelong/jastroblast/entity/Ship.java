@@ -15,6 +15,8 @@ public class Ship
 	private final Space space;
 	public Space getSpace() { return this.space; }
 
+	public final float SCALE = .5f;
+
 	// TODO fix Height/Width, should be associated with the sprite
 	private static final float WIDTH = 100f;
 	private static final float HEIGHT = 76f;

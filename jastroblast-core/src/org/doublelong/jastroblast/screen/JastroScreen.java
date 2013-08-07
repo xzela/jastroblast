@@ -51,8 +51,7 @@ public class JastroScreen implements Screen
 		this.space = new Space(game, debug, this.ppuX, this.ppuY);
 
 		this.batch = new SpriteBatch();
-		this.cam = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
-		//this.cam.setToOrtho(false, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+		this.cam = new OrthographicCamera();
 
 		this.input = new Inputs(this.space.getShip().controller);
 
@@ -64,7 +63,7 @@ public class JastroScreen implements Screen
 		this.space.viewport = this.viewport;
 		this.cam.update();
 
-		Gdx.gl.glViewport((int)this.viewport.x, (int)this.viewport.y, (int)this.viewport.width, (int)this.viewport.height);
+		//Gdx.gl.glViewport((int)this.viewport.x, (int)this.viewport.y, (int)this.viewport.width, (int)this.viewport.height);
 		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		this.cam.apply(Gdx.gl10);
@@ -85,7 +84,7 @@ public class JastroScreen implements Screen
 
 			this.batch.begin();
 			this.debugFont.setColor(Color.GREEN);
-			this.debugFont.setScale(.5f, .5f);
+			//			this.debugFont.setScale(.5f, .5f);
 			this.debugFont.draw(this.batch, "0x0", 0, 0);
 			this.batch.end();
 
@@ -131,8 +130,9 @@ public class JastroScreen implements Screen
 		float h = VIRTUAL_HEIGHT * scale;
 
 		this.viewport = new Rectangle(crop.x, crop.y, w, h);
-		//this.cam.translate(this.viewport.width / 2, this.viewport.height / 2, 0);
-		this.cam = new OrthographicCamera(this.viewport.width / 2,  this.viewport.height / 2);
+		this.cam.translate(this.viewport.width / 2, this.viewport.height / 2, 0);
+		//this.cam = new OrthographicCamera(this.viewport.width / 2,  this.viewport.height / 2);
+		this.cam = new OrthographicCamera(width,  height);
 	}
 
 	@Override

@@ -37,7 +37,7 @@ public class Space
 		this.debug = debug;
 		this.ppuX = ppuX;
 		this.ppuY = ppuY;
-		this.ship = new Ship(this, new Vector2(-100f, -100f));
+		this.ship = new Ship(this, new Vector2(0f, 0f));
 		this.asteroids = this.generateAsteroids(3);
 	}
 
@@ -72,16 +72,19 @@ public class Space
 	{
 		Random r = new Random();
 		List<Asteroid> temp = new ArrayList<Asteroid>();
-		int flip = 1;
-		for(int i = 0; i < num; i++)
-		{
-			float x = r.nextInt((int)(this.ppuX - 50)) + 1;
-			System.out.println(x);
-			float y = r.nextInt((int)(this.ppuY - 50)) + 1;
-			Asteroid a = new Asteroid(this, new Vector2(flip * x, flip * y));
-			temp.add(a);
-			flip = flip * -1;
-		}
+		temp.add(new Asteroid(this, new Vector2(-220f, -150f)));
+		temp.add(new Asteroid(this, new Vector2(-220f, 80f)));
+
+		//		int flip = 1;
+		//		for(int i = 0; i < num; i++)
+		//		{
+		//			float x = r.nextInt((int)(this.ppuX * 10 - 150)) + 1;
+		//			System.out.println(x);
+		//			float y = r.nextInt((int)(this.ppuY * 10 - 150)) + 1;
+		//			Asteroid a = new Asteroid(this, new Vector2(flip * x, flip * y));
+		//			temp.add(a);
+		//			flip = flip * -1;
+		//		}
 		return temp;
 	}
 }

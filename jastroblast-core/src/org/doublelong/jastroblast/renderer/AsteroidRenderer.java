@@ -28,8 +28,8 @@ public class AsteroidRenderer extends BaseRenderer
 	public void render(SpriteBatch batch, OrthographicCamera cam)
 	{
 		// set scale
-		this.sprite.setScale(.5f, .5f);
-		this.font.setScale(.5f, .5f);
+		//		this.sprite.setScale(.5f, .5f);
+		//		this.font.setScale(.5f, .5f);
 
 		// set the bounds and position
 		this.sprite.setPosition(this.asteroid.getPosition().x, this.asteroid.getPosition().y);
@@ -50,25 +50,25 @@ public class AsteroidRenderer extends BaseRenderer
 		if (this.debug)
 		{
 			this.debugRenderer.setProjectionMatrix(cam.combined);
-			if(this.debug)
-			{
-				//				if (this.debugHit)
-				//				{
-				//					this.debugRenderer.begin(ShapeType.FilledRectangle);
-				//					this.debugRenderer.identity();
-				//					this.debugRenderer.setColor(Color.RED);
-				//					this.debugRenderer.filledRect(this.bb.x, this.bb.y, this.bb.width, this.bb.height);
-				//					this.debugRenderer.end();
-				//				}
-				//				else
-				//				{
-				//					this.debugRenderer.begin(ShapeType.Rectangle);
-				//					this.debugRenderer.identity();
-				//					this.debugRenderer.setColor(Color.RED);
-				//					this.debugRenderer.rect(this.bb.x, this.bb.y, this.bb.width, this.bb.height);
-				//					this.debugRenderer.end();
-				//				}
-			}
+			//			if(this.debug)
+			//			{
+			//				if (this.debugHit)
+			//				{
+			//					this.debugRenderer.begin(ShapeType.FilledRectangle);
+			//					this.debugRenderer.identity();
+			//					this.debugRenderer.setColor(Color.RED);
+			//					this.debugRenderer.filledRect(this.bb.x, this.bb.y, this.bb.width, this.bb.height);
+			//					this.debugRenderer.end();
+			//				}
+			//				else
+			//				{
+			//					this.debugRenderer.begin(ShapeType.Rectangle);
+			//					this.debugRenderer.identity();
+			//					this.debugRenderer.setColor(Color.RED);
+			//					this.debugRenderer.rect(this.bb.x, this.bb.y, this.bb.width, this.bb.height);
+			//					this.debugRenderer.end();
+			//				}
+			//			}
 			if (this.debugHit)
 			{
 				this.debugRenderer.begin(ShapeType.FilledRectangle);
@@ -99,8 +99,8 @@ public class AsteroidRenderer extends BaseRenderer
 			this.font.draw(batch, "Pos: " + this.format.format(this.asteroid.getPosition().x) + " : " + this.format.format(this.asteroid.getPosition().y), debug_x, debug_y);
 			this.font.draw(batch, "Ang: " + this.format.format(this.asteroid.getAngle()), debug_x, debug_y - 20);
 		}
-		this.sprite.setRotation(this.asteroid.getAngle());
-		this.sprite.draw(batch);
+		//this.sprite.setRotation(this.asteroid.getAngle());
+		//this.sprite.draw(batch);
 		batch.end();
 
 
