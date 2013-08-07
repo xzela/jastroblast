@@ -34,7 +34,7 @@ public class Space
 		this.game = game;
 		this.ppuX = ppuX;
 		this.ppuY = ppuY;
-		this.ship = new Ship(this);
+		this.ship = new Ship(this, new Vector2(1f, 1f));
 		this.asteroids = this.generateAsteroids(3);
 	}
 

@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Rectangle;
 
 public class ShipRenderer extends BaseRenderer
 {
@@ -18,18 +17,16 @@ public class ShipRenderer extends BaseRenderer
 	private final Texture texture;
 	public final Sprite sprite;
 
-	public Rectangle r;
-
 	public ShipRenderer(Ship ship)
 	{
 		this.ship = ship;
 		this.texture = new Texture(Gdx.files.internal("assets/images/player.png"));
 		this.sprite = new Sprite(this.texture);
-		this.r = new Rectangle();
 	}
 
 	public void render(SpriteBatch batch, OrthographicCamera cam)
 	{
+		// set scale
 		this.sprite.setScale(.5f, .5f);
 		this.font.setScale(.5f, .5f);
 
@@ -39,6 +36,7 @@ public class ShipRenderer extends BaseRenderer
 
 		float debug_x = this.ship.getPosition().x + this.ship.getBounds().width;
 		float debug_y = this.ship.getPosition().y + this.ship.getBounds().width;
+		// set the bounding box
 		this.bb = this.sprite.getBoundingRectangle();
 		//set the hittible bounds and position
 		this.hb.x = this.sprite.getX();
@@ -66,10 +64,7 @@ public class ShipRenderer extends BaseRenderer
 			this.debugRenderer.end();
 		}
 
-		//
-		//		batch.setProjectionMatrix(cam.combined);
 		batch.begin();
-
 		if (this.debug)
 		{
 			this.font.setColor(Color.RED);
@@ -78,9 +73,7 @@ public class ShipRenderer extends BaseRenderer
 		}
 		// rotate the sprite when needed
 		this.sprite.setRotation(this.ship.getRotation());
-
 		this.sprite.draw(batch);
-
 		batch.end();
 	}
 

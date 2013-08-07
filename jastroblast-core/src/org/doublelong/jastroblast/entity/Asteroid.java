@@ -18,12 +18,14 @@ public class Asteroid
 	private static final float WIDTH = 136f;
 	private static final float HEIGHT = 111f;
 
-
 	private final Vector2 position;
 	public Vector2 getPosition() { return this.position; }
 
 	private final Rectangle bounds;
 	public Rectangle getBounds() { return this.bounds; }
+
+	public float getWidth() { return this.bounds.width; }
+	public float getHeight() { return this.bounds.height; }
 
 	private final Vector2 velocity;
 

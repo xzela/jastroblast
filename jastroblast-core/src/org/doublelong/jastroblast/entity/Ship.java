@@ -43,11 +43,11 @@ public class Ship
 
 	public Vector2 ppu;
 
-	public Ship(Space space)
+	public Ship(Space space, Vector2 position)
 	{
 		this.space = space;
 		this.ppu = new Vector2(this.space.ppuX, this.space.ppuY);
-		this.position = new Vector2(this.space.ppuX, this.space.ppuY);
+		this.position = position;
 		this.bounds = new Rectangle(this.position.x, this.position.y, Ship.WIDTH, Ship.HEIGHT);
 
 		this.renderer = new ShipRenderer(this);

@@ -23,19 +23,28 @@ public class AsteroidRenderer extends BaseRenderer
 		this.asteroid = asteroid;
 		this.texture = new Texture(Gdx.files.internal("assets/images/asteriod_big.png"));
 		this.sprite = new Sprite(this.texture);
-		this.sprite.setPosition(this.asteroid.getPosition().x, this.asteroid.getPosition().y);
 	}
 
 	public void render(SpriteBatch batch, OrthographicCamera cam)
 	{
+		// set scale
 		this.sprite.setScale(.5f, .5f);
 		this.font.setScale(.5f, .5f);
 
+		// set the bounds and position
+		this.sprite.setPosition(this.asteroid.getPosition().x, this.asteroid.getPosition().y);
+		this.sprite.setBounds(this.asteroid.getPosition().x, this.asteroid.getPosition().y, this.asteroid.getWidth(), this.asteroid.getHeight());
+
+		// set debug x
 		float debug_x = this.asteroid.getPosition().x + this.asteroid.getBounds().width;
 		float debug_y = this.asteroid.getPosition().y + this.asteroid.getBounds().width;
-		this.sprite.setPosition(this.asteroid.getPosition().x, this.asteroid.getPosition().y);
-
-		this.bb = this.asteroid.renderer.sprite.getBoundingRectangle();
+		// set the bounding box
+		this.bb = this.sprite.getBoundingRectangle();
+		// set the hittable box
+		this.hb.x = this.sprite.getX();
+		this.hb.y = this.sprite.getY();
+		this.hb.width = this.sprite.getWidth() * this.sprite.getScaleX();
+		this.hb.height = this.sprite.getHeight() * this.sprite.getScaleY();
 
 		if (this.debug)
 		{
@@ -49,6 +58,14 @@ public class AsteroidRenderer extends BaseRenderer
 				this.debugRenderer.begin(ShapeType.Rectangle);
 				this.debugRenderer.rect(this.bb.x, this.bb.y, this.bb.width, this.bb.height);
 			}
+			this.debugRenderer.end();
+
+			this.debugRenderer.begin(ShapeType.Rectangle);
+			this.debugRenderer.setColor(Color.BLUE);
+			this.debugRenderer.identity();
+			this.debugRenderer.translate(this.hb.x + this.hb.width, this.hb.y + this.hb.height, 0f);
+			this.debugRenderer.rotate(0, 0, 1, this.asteroid.getAngle());
+
 			this.debugRenderer.end();
 		}
 
@@ -64,7 +81,7 @@ public class AsteroidRenderer extends BaseRenderer
 		batch.end();
 
 
-		this.wrap();
+		//this.wrap();
 	}
 
 	private void wrap()
