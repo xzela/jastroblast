@@ -23,6 +23,6 @@ public class JastroBlast extends Game
 
 	private void initialize()
 	{
-		this.jastroScreen = new JastroScreen(this);
+		this.jastroScreen = new JastroScreen(this, true);
 	}
 }

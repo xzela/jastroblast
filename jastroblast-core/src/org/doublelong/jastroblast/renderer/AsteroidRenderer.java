@@ -46,27 +46,50 @@ public class AsteroidRenderer extends BaseRenderer
 		this.hb.width = this.sprite.getWidth() * this.sprite.getScaleX();
 		this.hb.height = this.sprite.getHeight() * this.sprite.getScaleY();
 
+
 		if (this.debug)
 		{
+			this.debugRenderer.setProjectionMatrix(cam.combined);
+			if(this.debug)
+			{
+				//				if (this.debugHit)
+				//				{
+				//					this.debugRenderer.begin(ShapeType.FilledRectangle);
+				//					this.debugRenderer.identity();
+				//					this.debugRenderer.setColor(Color.RED);
+				//					this.debugRenderer.filledRect(this.bb.x, this.bb.y, this.bb.width, this.bb.height);
+				//					this.debugRenderer.end();
+				//				}
+				//				else
+				//				{
+				//					this.debugRenderer.begin(ShapeType.Rectangle);
+				//					this.debugRenderer.identity();
+				//					this.debugRenderer.setColor(Color.RED);
+				//					this.debugRenderer.rect(this.bb.x, this.bb.y, this.bb.width, this.bb.height);
+				//					this.debugRenderer.end();
+				//				}
+			}
 			if (this.debugHit)
 			{
 				this.debugRenderer.begin(ShapeType.FilledRectangle);
-				this.debugRenderer.filledRect(this.bb.x, this.bb.y, this.bb.width, this.bb.height);
+				this.debugRenderer.setColor(Color.BLUE);
+				this.debugRenderer.identity();
+				this.debugRenderer.translate(this.hb.x + this.hb.width, this.hb.y + this.hb.height, 0f);
+				this.debugRenderer.rotate(0, 0, 1, this.asteroid.getAngle());
+				this.debugRenderer.filledRect(-this.hb.width / 2, -this.hb.height / 2, this.hb.width, this.hb.height);
+				this.debugRenderer.end();
 			}
 			else
 			{
 				this.debugRenderer.begin(ShapeType.Rectangle);
-				this.debugRenderer.rect(this.bb.x, this.bb.y, this.bb.width, this.bb.height);
+				this.debugRenderer.setColor(Color.BLUE);
+				this.debugRenderer.identity();
+				this.debugRenderer.translate(this.hb.x + this.hb.width, this.hb.y + this.hb.height, 0f);
+				this.debugRenderer.rotate(0, 0, 1, this.asteroid.getAngle());
+				this.debugRenderer.rect(-this.hb.width / 2, -this.hb.height / 2, this.hb.width, this.hb.height);
+				this.debugRenderer.end();
 			}
-			this.debugRenderer.end();
 
-			this.debugRenderer.begin(ShapeType.Rectangle);
-			this.debugRenderer.setColor(Color.BLUE);
-			this.debugRenderer.identity();
-			this.debugRenderer.translate(this.hb.x + this.hb.width, this.hb.y + this.hb.height, 0f);
-			this.debugRenderer.rotate(0, 0, 1, this.asteroid.getAngle());
-
-			this.debugRenderer.end();
 		}
 
 		batch.begin();
@@ -88,18 +111,18 @@ public class AsteroidRenderer extends BaseRenderer
 	{
 		if(this.asteroid.getPosition().x < -this.sprite.getWidth())
 		{
-			this.asteroid.getPosition().x = 600 + this.sprite.getWidth() / 2;
+			this.asteroid.getPosition().x = this.asteroid.getSpace().viewport.width + this.sprite.getWidth() / 2;
 		}
-		else if (this.asteroid.getPosition().x > 600 + this.sprite.getWidth() - 10)
+		else if (this.asteroid.getPosition().x > this.asteroid.getSpace().viewport.width + this.sprite.getWidth() - 10)
 		{
 			this.asteroid.getPosition().x = 0 - this.sprite.getWidth() / 2;
 		}
 
 		if (this.asteroid.getPosition().y < -this.sprite.getHeight())
 		{
-			this.asteroid.getPosition().y = 599;
+			this.asteroid.getPosition().y = this.asteroid.getSpace().viewport.height - 1;
 		}
-		else if(this.asteroid.getPosition().y > 600)
+		else if(this.asteroid.getPosition().y > this.asteroid.getSpace().viewport.height)
 		{
 			this.asteroid.getPosition().y = 0 - this.sprite.getHeight();
 		}

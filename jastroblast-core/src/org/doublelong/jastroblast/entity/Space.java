@@ -16,6 +16,9 @@ public class Space
 	public static final float HEIGHT = 10f;
 	public static final float WIDTH = 12f;
 
+	public final float ppuX;
+	public final float ppuY;
+
 	private final JastroBlast game;
 
 	private final Ship ship;
@@ -24,17 +27,17 @@ public class Space
 	private final List<Asteroid> asteroids;
 	public List<Asteroid> getAsteroids() { return this.asteroids; }
 
-	public final float ppuX;
-	public final float ppuY;
-
 	public Rectangle viewport;
 
-	public Space(JastroBlast game, float ppuX, float ppuY)
+	public boolean debug = false;
+
+	public Space(JastroBlast game, boolean debug, float ppuX, float ppuY)
 	{
 		this.game = game;
+		this.debug = debug;
 		this.ppuX = ppuX;
 		this.ppuY = ppuY;
-		this.ship = new Ship(this, new Vector2(1f, 1f));
+		this.ship = new Ship(this, new Vector2(-100f, -100f));
 		this.asteroids = this.generateAsteroids(3);
 	}
 
@@ -69,12 +72,15 @@ public class Space
 	{
 		Random r = new Random();
 		List<Asteroid> temp = new ArrayList<Asteroid>();
+		int flip = 1;
 		for(int i = 0; i < num; i++)
 		{
-			float x = r.nextInt((int)(this.ppuX * WIDTH - 50)) + 1;
-			float y = r.nextInt((int)(this.ppuY * HEIGHT - 50)) + 1;
-			Asteroid a = new Asteroid(this, new Vector2(x, y));
+			float x = r.nextInt((int)(this.ppuX - 50)) + 1;
+			System.out.println(x);
+			float y = r.nextInt((int)(this.ppuY - 50)) + 1;
+			Asteroid a = new Asteroid(this, new Vector2(flip * x, flip * y));
 			temp.add(a);
+			flip = flip * -1;
 		}
 		return temp;
 	}

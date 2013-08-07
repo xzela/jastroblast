@@ -6,10 +6,13 @@ import org.doublelong.jastroblast.entity.Space;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -32,16 +35,20 @@ public class JastroScreen implements Screen
 	public final float ppuY;
 
 	public ShapeRenderer debugRenderer = new ShapeRenderer();
+	public BitmapFont debugFont = new BitmapFont();
 
 	public int i;
 
-	public JastroScreen(JastroBlast game)
+	public boolean debug = false;
+
+	public JastroScreen(JastroBlast game, boolean debug)
 	{
 		// define the pixels
+		this.debug = debug;
 		this.ppuX = game.WINDOW_WIDTH / Space.WIDTH;
 		this.ppuY = game.WINDOW_HEIGHT / Space.HEIGHT;
 
-		this.space = new Space(game, this.ppuX, this.ppuY);
+		this.space = new Space(game, debug, this.ppuX, this.ppuY);
 
 		this.batch = new SpriteBatch();
 		this.cam = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
@@ -65,7 +72,31 @@ public class JastroScreen implements Screen
 		this.batch.setProjectionMatrix(this.cam.combined);
 
 		this.space.render(this.batch, this.cam);
+		if(this.debug)
+		{
+			// draw height line
+			this.debugRenderer.setProjectionMatrix(this.cam.combined);
+			this.debugRenderer.begin(ShapeType.Line);
+			this.debugRenderer.identity();
+			this.debugRenderer.setColor(Color.GREEN);
+			this.debugRenderer.line(0, 0, 0, VIRTUAL_HEIGHT / 2);
+			this.debugRenderer.end();
 
+
+			this.batch.begin();
+			this.debugFont.setColor(Color.GREEN);
+			this.debugFont.setScale(.5f, .5f);
+			this.debugFont.draw(this.batch, "0x0", 0, 0);
+			this.batch.end();
+
+			// draw width line
+			this.debugRenderer.begin(ShapeType.Line);
+			this.debugRenderer.identity();
+			this.debugRenderer.setColor(Color.PINK);
+			this.debugRenderer.line(0, 0, VIRTUAL_WIDTH / 2, 0);
+			this.debugRenderer.end();
+
+		}
 		this.update(delta);
 	}
 

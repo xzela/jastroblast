@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Ship
 {
 	private final Space space;
+	public Space getSpace() { return this.space; }
 
 	// TODO fix Height/Width, should be associated with the sprite
 	private static final float WIDTH = 100f;
@@ -41,12 +42,9 @@ public class Ship
 	public Vector2 getVelocity() { return this.velocity; }
 	public void setVelocity(Vector2 velocity) { this.velocity = velocity; }
 
-	public Vector2 ppu;
-
 	public Ship(Space space, Vector2 position)
 	{
 		this.space = space;
-		this.ppu = new Vector2(this.space.ppuX, this.space.ppuY);
 		this.position = position;
 		this.bounds = new Rectangle(this.position.x, this.position.y, Ship.WIDTH, Ship.HEIGHT);
 
@@ -76,7 +74,7 @@ public class Ship
 		{
 			if(this.renderer.hb.overlaps(a.renderer.hb))
 			{
-				System.out.println("Hitting astroid");
+				//System.out.println("Hitting astroid");
 				a.renderer.debugHit = true;
 			}
 			else

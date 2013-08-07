@@ -13,6 +13,7 @@ public class Asteroid
 {
 
 	private final Space space;
+	public final Space getSpace() {return this.space; }
 
 	// TODO fix Height/Width, should be associated with the sprite
 	private static final float WIDTH = 136f;
