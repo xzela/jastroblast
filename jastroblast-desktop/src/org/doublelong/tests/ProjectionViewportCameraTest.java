@@ -7,7 +7,10 @@ public class ProjectionViewportCameraTest
 {
 	public static void main(String[] args)
 	{
-		ProjectionViewportCamera game = new ProjectionViewportCamera();
+		//		ProjectionViewportCamera game = new ProjectionViewportCamera();
+		//		new LwjglApplication(game);
+
+		Box2dTest game = new Box2dTest();
 		new LwjglApplication(game);
 	}
 
