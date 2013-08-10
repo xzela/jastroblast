@@ -79,7 +79,6 @@ public class AsteroidRenderer extends BaseRenderer
 		this.hb.width = this.sprite.getWidth() * this.sprite.getScaleX();
 		this.hb.height = this.sprite.getHeight() * this.sprite.getScaleY();
 
-
 		if (this.debug)
 		{
 			this.debugRenderer.setProjectionMatrix(cam.combined);

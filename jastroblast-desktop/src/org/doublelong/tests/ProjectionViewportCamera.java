@@ -1,29 +1,35 @@
 package org.doublelong.tests;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.VertexAttribute;
-import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 public class ProjectionViewportCamera implements ApplicationListener
 {
 	private OrthographicCamera camera;
 	private ShapeRenderer renderer;
 
-	public Mesh squareMesh;
+	private Rectangle r;
+	private final HashMap<String, Float> rv = new HashMap<String, Float>();
 
-	private int i;
+	private final Vector2 position = new Vector2();
 
 	@Override
 	public void create()
 	{
-		renderer = new ShapeRenderer();
+		this.renderer = new ShapeRenderer();
+		this.r = new Rectangle();
+		this.position.x = .25f;
+		this.position.y = .25f;
+		this.r.set(this.position.x, this.position.y, .5f, .5f);
 	}
 
 	@Override
@@ -35,39 +41,36 @@ public class ProjectionViewportCamera implements ApplicationListener
 	@Override
 	public void render()
 	{
-
-		if (this.squareMesh == null) {
-			this.squareMesh = new Mesh(true, 4, 4,
-					new VertexAttribute(Usage.Position, 3, "a_position"),
-					new VertexAttribute(Usage.ColorPacked, 4, "a_color"));
-
-			this.squareMesh.setVertices(new float[] {
-					-0.5f, -0.5f, 0, Color.toFloatBits(128, 0, 0, 255),
-					0.5f, -0.5f, 0, Color.toFloatBits(192, 0, 0, 255),
-					-0.5f, 0.5f, 0, Color.toFloatBits(192, 0, 0, 255),
-					0.5f, 0.5f, 0, Color.toFloatBits(255, 0, 0, 255) });
-			this.squareMesh.setIndices(new short[] { 0, 1, 2, 3});
-		}
-
 		camera.update();
 		camera.apply(Gdx.gl10);
 
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
-		this.squareMesh.render(GL10.GL_TRIANGLE_STRIP, 0, 4);
+		this.rv.put("LL", this.position.x);
+		this.rv.put("LR", this.position.x + this.r.width);
+		this.rv.put("UL", this.position.x + this.r.height);
+		this.rv.put("UR", this.r.width + this.r.height);
 
 		this.renderer.setProjectionMatrix(camera.combined);
 		this.renderer.begin(ShapeType.Rectangle);
 		this.renderer.setColor(Color.BLUE);
 		this.renderer.identity();
-		this.renderer.translate(.25f, .25f, 0f);
-		this.renderer.rotate(0, 0, 1, this.i);
+		this.renderer.translate(this.position.x, this.position.y, 0f);
+		this.renderer.rotate(0, 0, 1, 5);
+		this.renderer.rect(-this.r.width / 2, -this.r.height / 2, this.r.width, this.r.height);
 
-		this.renderer.rect(-.25f / 2, -.25f / 2, .25f, .25f);
-
-
+		//		this.renderer.rect(this.position.x, this.position.y, this.r.width, this.r.height);
 		this.renderer.end();
-		i++;
+
+
+
+		// draw the right side of 'r'
+		this.renderer.begin(ShapeType.Line);
+		this.renderer.setColor(Color.GREEN);
+		this.renderer.identity();
+		this.renderer.line(this.r.width * 1.5f, this.r.height / 2, this.position.x, this.position.y);
+		this.renderer.end();
+
 	}
 
 	@Override
