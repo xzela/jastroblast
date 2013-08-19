@@ -10,16 +10,20 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class Space
 {
+	public final World world;
+	private final JastroBlast game;
+
 	public static final float HEIGHT = 10f;
 	public static final float WIDTH = 12f;
 
 	public final float ppuX;
 	public final float ppuY;
 
-	private final JastroBlast game;
+
 
 	private final Ship ship;
 	public Ship getShip() { return this.ship; }
@@ -33,6 +37,8 @@ public class Space
 
 	public Space(JastroBlast game, boolean debug, float ppuX, float ppuY)
 	{
+		this.world = new World(new Vector2(0,0), true); // no gravity
+
 		this.game = game;
 		this.debug = debug;
 		this.ppuX = ppuX;

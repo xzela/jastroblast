@@ -1,5 +1,7 @@
 package org.doublelong.tests;
 
+import java.util.Iterator;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
@@ -21,6 +23,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Box2dTest implements ApplicationListener
 {
 	World world;
+	float i = 0;
 
 	Box2DDebugRenderer debugRenderer;
 	OrthographicCamera camera;
@@ -46,6 +49,7 @@ public class Box2dTest implements ApplicationListener
 		groundBodyDef.position.set(new Vector2(0, 10));
 		Body groundBody = world.createBody(groundBodyDef);
 		PolygonShape groundBox = new PolygonShape();
+		// set the ground
 		groundBox.setAsBox((camera.viewportWidth) * 2, 10.0f);
 		groundBody.createFixture(groundBox, 0.0f);
 
@@ -59,14 +63,39 @@ public class Box2dTest implements ApplicationListener
 		CircleShape dynamicCircle = new CircleShape();
 		dynamicCircle.setRadius(10f);
 
-		// FixtureDef ??? Ball output?
+		// triangle
+		Vector2[] vertices = new Vector2[3];
+		vertices[0] = new Vector2(-10, 0);
+		vertices[1] = new Vector2(10, 0);
+		vertices[2] = new Vector2(0, 20);
+
+		BodyDef triBodyDef = new BodyDef();
+		triBodyDef.type = BodyType.KinematicBody;
+		triBodyDef.position.set(new Vector2(camera.viewportWidth / 2 + 5, 100));
+		//triBodyDef.angle = 1f;
+		// put the triangle in the world
+		Body triBody = world.createBody(triBodyDef);
+		triBody.setTransform(triBody.getPosition(), 10 * i);
+		System.out.println(10 * i);
+		PolygonShape tri = new PolygonShape();
+
+		tri.set(vertices);
+
+		triBody.createFixture(tri, 0f);
+
+
+		// FixtureDef - properties of the fixture.
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = dynamicCircle;
-		fixtureDef.density = 5.0f;
-		fixtureDef.friction = .1f;
-		fixtureDef.restitution = .5f;
+		fixtureDef.density = 15.0f; // how dense it is
+		fixtureDef.friction = .9f; // fiction
+		fixtureDef.restitution = .15f; // how bouncy
 		body.createFixture(fixtureDef);
 		debugRenderer = new Box2DDebugRenderer();
+		dynamicCircle.dispose();
+		tri.dispose();
+
+
 	}
 
 	@Override
@@ -80,6 +109,16 @@ public class Box2dTest implements ApplicationListener
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		debugRenderer.render(world, camera.combined);
 		world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
+		Iterator<Body> bodies = world.getBodies();
+		while(bodies.hasNext())
+		{
+			Body b = bodies.next();
+			if (b.getType().equals(BodyType.KinematicBody))
+			{
+				b.setTransform(b.getPosition(), b.getAngle() + 0.1f);
+			}
+		}
+		i++;
 	}
 
 	@Override
