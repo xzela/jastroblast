@@ -1,6 +1,6 @@
 package org.doublelong.tests;
 
-import java.util.Iterator;
+import org.doublelong.tests.entities.Ship;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -23,6 +23,8 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Box2dTest implements ApplicationListener
 {
 	World world;
+	Ship ship;
+
 	float i = 0;
 
 	Box2DDebugRenderer debugRenderer;
@@ -38,11 +40,16 @@ public class Box2dTest implements ApplicationListener
 	public void create()
 	{
 		world = new World(new Vector2(0, -100), true);
+		ship = new Ship(world);
 		camera = new OrthographicCamera();
 		camera.viewportHeight = 320;
 		camera.viewportWidth = 480;
 		camera.position.set(camera.viewportWidth * .5f, camera.viewportHeight * .5f, 0f);
 		camera.update();
+
+		// controllers
+
+
 
 		//Ground body
 		BodyDef groundBodyDef = new BodyDef();
@@ -58,6 +65,8 @@ public class Box2dTest implements ApplicationListener
 		bodyDef.type = BodyType.DynamicBody;
 		bodyDef.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2);
 		Body body = world.createBody(bodyDef);
+
+
 
 		// ball
 		CircleShape dynamicCircle = new CircleShape();
@@ -75,13 +84,14 @@ public class Box2dTest implements ApplicationListener
 		//triBodyDef.angle = 1f;
 		// put the triangle in the world
 		Body triBody = world.createBody(triBodyDef);
-		triBody.setTransform(triBody.getPosition(), 10 * i);
+		//triBody.setTransform(triBody.getPosition(), 10 * i);
 		System.out.println(10 * i);
 		PolygonShape tri = new PolygonShape();
 
 		tri.set(vertices);
 
 		triBody.createFixture(tri, 0f);
+
 
 
 		// FixtureDef - properties of the fixture.
@@ -94,7 +104,7 @@ public class Box2dTest implements ApplicationListener
 		debugRenderer = new Box2DDebugRenderer();
 		dynamicCircle.dispose();
 		tri.dispose();
-
+		ship.dispose();
 
 	}
 
@@ -107,18 +117,20 @@ public class Box2dTest implements ApplicationListener
 	public void render()
 	{
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		this.ship.controller.processControls();
+
 		debugRenderer.render(world, camera.combined);
 		world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
-		Iterator<Body> bodies = world.getBodies();
-		while(bodies.hasNext())
-		{
-			Body b = bodies.next();
-			if (b.getType().equals(BodyType.KinematicBody))
-			{
-				b.setTransform(b.getPosition(), b.getAngle() + 0.1f);
-			}
-		}
-		i++;
+		//		Iterator<Body> bodies = world.getBodies();
+		//		while(bodies.hasNext())
+		//		{
+		//			Body b = bodies.next();
+		//			if (b.getType().equals(BodyType.KinematicBody))
+		//			{
+		//				b.setTransform(b.getPosition(), b.getAngle() + 0.1f);
+		//			}
+		//		}
+
 	}
 
 	@Override
