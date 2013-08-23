@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -28,6 +29,9 @@ public class Ship
 	private final FixtureDef fixtureDef = new FixtureDef();
 	public FixtureDef getFixtureDef() { return this.fixtureDef; }
 
+	private final Fixture fixture;
+	public Fixture getFixture() { return this.fixture; }
+
 	private final PolygonShape shape = new PolygonShape();
 	public PolygonShape getShape() { return this.shape; }
 
@@ -39,15 +43,17 @@ public class Ship
 		this.bodyDef.position.set(new Vector2(50f,50f));
 		this.shape.set(this.vertices);
 
+
 		this.fixtureDef.shape = this.shape;
-		this.fixtureDef.density = 5f;
+		this.fixtureDef.density = 0f;
 		this.fixtureDef.friction = .0f;
-		this.fixtureDef.restitution = .5f;
+		this.fixtureDef.restitution = .0f;
 
 		// set the world stuff
 		this.body = this.world.createBody(bodyDef);
-		this.body.createFixture(this.shape, 0f);
-		//this.body.createFixture(this.fixtureDef);
+		//		this.body.createFixture(this.shape, 0f);
+		this.fixture = this.body.createFixture(this.fixtureDef);
+
 
 		this.controller = new ShipController(this);
 	}

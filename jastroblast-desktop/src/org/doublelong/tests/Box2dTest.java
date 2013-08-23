@@ -11,8 +11,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -41,6 +39,7 @@ public class Box2dTest implements ApplicationListener
 	{
 		world = new World(new Vector2(0, -100), true);
 		ship = new Ship(world);
+		debugRenderer = new Box2DDebugRenderer();
 		camera = new OrthographicCamera();
 		camera.viewportHeight = 320;
 		camera.viewportWidth = 480;
@@ -69,8 +68,8 @@ public class Box2dTest implements ApplicationListener
 
 
 		// ball
-		CircleShape dynamicCircle = new CircleShape();
-		dynamicCircle.setRadius(10f);
+		//		CircleShape dynamicCircle = new CircleShape();
+		//		dynamicCircle.setRadius(10f);
 
 		// triangle
 		Vector2[] vertices = new Vector2[3];
@@ -84,8 +83,6 @@ public class Box2dTest implements ApplicationListener
 		//triBodyDef.angle = 1f;
 		// put the triangle in the world
 		Body triBody = world.createBody(triBodyDef);
-		//triBody.setTransform(triBody.getPosition(), 10 * i);
-		System.out.println(10 * i);
 		PolygonShape tri = new PolygonShape();
 
 		tri.set(vertices);
@@ -95,14 +92,14 @@ public class Box2dTest implements ApplicationListener
 
 
 		// FixtureDef - properties of the fixture.
-		FixtureDef fixtureDef = new FixtureDef();
-		fixtureDef.shape = dynamicCircle;
-		fixtureDef.density = 15.0f; // how dense it is
-		fixtureDef.friction = .9f; // fiction
-		fixtureDef.restitution = .15f; // how bouncy
-		body.createFixture(fixtureDef);
-		debugRenderer = new Box2DDebugRenderer();
-		dynamicCircle.dispose();
+		//		FixtureDef fixtureDef = new FixtureDef();
+		//		fixtureDef.shape = dynamicCircle;
+		//		fixtureDef.density = 15.0f; // how dense it is
+		//		fixtureDef.friction = .9f; // fiction
+		//		fixtureDef.restitution = .15f; // how bouncy
+		//		body.createFixture(fixtureDef);
+		//
+		//		dynamicCircle.dispose();
 		tri.dispose();
 		ship.dispose();
 

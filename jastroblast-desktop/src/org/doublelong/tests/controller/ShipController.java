@@ -42,6 +42,19 @@ public class ShipController extends InputAdapter
 		{
 			this.stillTime = 0;
 		}
+
+		if(!Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT) && stillTime > 0.2)
+		{
+			this.ship.getFixture().setFriction(100f);
+			this.ship.getFixture().setFriction(100f);
+		}
+		else
+		{
+			this.ship.getFixture().setFriction(0.2f);
+			this.ship.getFixture().setFriction(0.2f);
+		}
+
+
 		// apply left impulse, but only if max velocity is not reached yet
 		if(Gdx.input.isKeyPressed(Keys.LEFT) && vel.x > -MAX_VELOCITY)
 		{
