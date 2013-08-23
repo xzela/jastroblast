@@ -36,19 +36,20 @@ public class ShipController extends InputAdapter
 		if(!Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT))
 		{
 			this.stillTime += Gdx.graphics.getDeltaTime();
-			this.ship.getBody().setLinearVelocity(vel.x * 0.9f, vel.y);
+			this.ship.getBody().setLinearVelocity(vel.x, vel.y);
 		}
-		else {
+		else
+		{
 			this.stillTime = 0;
 		}
 		// apply left impulse, but only if max velocity is not reached yet
-		if(Gdx.input.isKeyPressed(Keys.RIGHT) && vel.x > -MAX_VELOCITY)
+		if(Gdx.input.isKeyPressed(Keys.LEFT) && vel.x > -MAX_VELOCITY)
 		{
 			this.ship.getBody().applyLinearImpulse(-2f, 0, pos.x, pos.y);
 		}
 
 		// apply right impulse, but only if max velocity is not reached yet
-		if(Gdx.input.isKeyPressed(Keys.LEFT) && vel.x < MAX_VELOCITY)
+		if(Gdx.input.isKeyPressed(Keys.RIGHT) && vel.x < MAX_VELOCITY)
 		{
 			this.ship.getBody().applyLinearImpulse(2f, 0, pos.x, pos.y);
 		}
