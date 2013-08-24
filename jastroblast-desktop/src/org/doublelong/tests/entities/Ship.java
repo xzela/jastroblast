@@ -40,14 +40,14 @@ public class Ship
 		this.world = world;
 		this.vertices = this.createVertices();
 		this.bodyDef.type = BodyType.DynamicBody;
-		this.bodyDef.position.set(new Vector2(50f,50f));
+		this.bodyDef.position.set(new Vector2(125f,100f));
 		this.shape.set(this.vertices);
 
 
 		this.fixtureDef.shape = this.shape;
-		this.fixtureDef.density = 0f;
+		this.fixtureDef.density = .01f;
 		this.fixtureDef.friction = .0f;
-		this.fixtureDef.restitution = .0f;
+		this.fixtureDef.restitution = .5f;
 
 		// set the world stuff
 		this.body = this.world.createBody(bodyDef);

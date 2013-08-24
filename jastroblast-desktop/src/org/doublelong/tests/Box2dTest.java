@@ -37,7 +37,7 @@ public class Box2dTest implements ApplicationListener
 	@Override
 	public void create()
 	{
-		world = new World(new Vector2(0, -100), true);
+		world = new World(new Vector2(0, 0), true);
 		ship = new Ship(world);
 		debugRenderer = new Box2DDebugRenderer();
 		camera = new OrthographicCamera();

@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class ShipController extends InputAdapter
 {
-	private final static float MAX_VELOCITY = 7f;
+	private final static float MAX_VELOCITY = 100f;
 	private final Ship ship;
 	private float stillTime = 0f;
 
