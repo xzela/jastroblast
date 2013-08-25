@@ -6,6 +6,8 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -16,12 +18,17 @@ import com.badlogic.gdx.physics.box2d.World;
 
 /**
  * Stolen from: http://programmersweb.blogspot.com/2012/07/simple-libgdx-box2d-bouncing-ball.html
- *
+ * http://www.badlogicgames.com/wordpress/?p=2017
+ * 
  */
 public class Box2dTest implements ApplicationListener
 {
 	World world;
 	Ship ship;
+
+	SpriteBatch batch;
+	BitmapFont font;
+
 
 	float i = 0;
 
@@ -46,7 +53,8 @@ public class Box2dTest implements ApplicationListener
 		camera.position.set(camera.viewportWidth * .5f, camera.viewportHeight * .5f, 0f);
 		camera.update();
 
-		// controllers
+		batch = new SpriteBatch();
+		font = new BitmapFont();
 
 
 
@@ -118,6 +126,17 @@ public class Box2dTest implements ApplicationListener
 
 		debugRenderer.render(world, camera.combined);
 		world.step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
+
+		//camera.project()
+
+		batch.begin();
+		String str = "Anglar Vel: " + this.ship.getBody().getAngularVelocity();
+		str += "\nPosition: " + this.ship.getBody().getPosition();
+		str += "\nLinear Vel: " + this.ship.getBody().getLinearVelocity();
+
+		font.drawMultiLine(batch, str, this.ship.getBody().getPosition().x, this.ship.getBody().getPosition().y);
+		batch.end();
+
 		//		Iterator<Body> bodies = world.getBodies();
 		//		while(bodies.hasNext())
 		//		{

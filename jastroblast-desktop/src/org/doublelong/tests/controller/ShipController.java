@@ -29,11 +29,22 @@ public class ShipController extends InputAdapter
 		if(Math.abs(vel.x) > MAX_VELOCITY)
 		{
 			vel.x = Math.signum(vel.x) * MAX_VELOCITY;
+			vel.y = Math.signum(vel.y) * MAX_VELOCITY;
 			this.ship.getBody().setLinearVelocity(vel.x, vel.y);
 		}
 
+		if (Math.abs(vel.x) > 0)
+		{
+			vel.x -= 0.2f;
+		}
+		else if (Math.abs(vel.x) <= 0)
+		{
+			vel.x = 0;
+		}
+
 		// calculate stilltime & damp
-		if(!Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT))
+		if(!Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT)
+				&& !Gdx.input.isKeyPressed(Keys.UP) && !Gdx.input.isKeyPressed(Keys.DOWN))
 		{
 			this.stillTime += Gdx.graphics.getDeltaTime();
 			this.ship.getBody().setLinearVelocity(vel.x, vel.y);
@@ -43,15 +54,15 @@ public class ShipController extends InputAdapter
 			this.stillTime = 0;
 		}
 
-		if(!Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT) && stillTime > 0.2)
+		if(!Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT) && this.stillTime > 0.2)
 		{
 			this.ship.getFixture().setFriction(100f);
-			this.ship.getFixture().setFriction(100f);
+			//			this.ship.getFixture().setFriction(100f);
 		}
 		else
 		{
 			this.ship.getFixture().setFriction(0.2f);
-			this.ship.getFixture().setFriction(0.2f);
+			//			this.ship.getFixture().setFriction(0.2f);
 		}
 
 
@@ -59,6 +70,18 @@ public class ShipController extends InputAdapter
 		if(Gdx.input.isKeyPressed(Keys.LEFT) && vel.x > -MAX_VELOCITY)
 		{
 			this.ship.getBody().applyLinearImpulse(-2f, 0, pos.x, pos.y);
+		}
+
+		// apply UP impulse
+		if (Gdx.input.isKeyPressed(Keys.UP) && vel.y > -MAX_VELOCITY)
+		{
+			this.ship.getBody().applyLinearImpulse(0, 2f, pos.x, pos.y);
+		}
+
+		// apply UP impulse
+		if (Gdx.input.isKeyPressed(Keys.DOWN) && vel.y < MAX_VELOCITY)
+		{
+			this.ship.getBody().applyLinearImpulse(0, -2f, pos.x, pos.y);
 		}
 
 		// apply right impulse, but only if max velocity is not reached yet

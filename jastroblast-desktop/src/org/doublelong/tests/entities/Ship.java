@@ -41,7 +41,8 @@ public class Ship
 		this.vertices = this.createVertices();
 		this.bodyDef.type = BodyType.DynamicBody;
 		this.bodyDef.position.set(new Vector2(125f,100f));
-		this.shape.set(this.vertices);
+		//this.shape.set(this.vertices);
+		this.shape.setAsBox(20f, 20f);
 
 
 		this.fixtureDef.shape = this.shape;
