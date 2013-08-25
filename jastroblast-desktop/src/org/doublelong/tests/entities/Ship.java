@@ -78,4 +78,9 @@ public class Ship
 	{
 		this.shape.dispose();
 	}
+
+	public Vector2 getLocalVelocity()
+	{
+		return this.body.getLocalVector(this.body.getLinearVelocityFromLocalPoint(this.getBody().getPosition()));
+	}
 }

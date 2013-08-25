@@ -33,21 +33,13 @@ public class ShipController extends InputAdapter
 			this.ship.getBody().setLinearVelocity(vel.x, vel.y);
 		}
 
-		if (Math.abs(vel.x) > 0)
-		{
-			vel.x -= 0.2f;
-		}
-		else if (Math.abs(vel.x) <= 0)
-		{
-			vel.x = 0;
-		}
-
 		// calculate stilltime & damp
 		if(!Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT)
 				&& !Gdx.input.isKeyPressed(Keys.UP) && !Gdx.input.isKeyPressed(Keys.DOWN))
 		{
 			this.stillTime += Gdx.graphics.getDeltaTime();
-			this.ship.getBody().setLinearVelocity(vel.x, vel.y);
+			this.ship.getBody().setLinearVelocity(vel.x * 0.99f, vel.y * 0.99f);
+			this.ship.getBody().setAngularDamping(2f);
 		}
 		else
 		{
@@ -69,7 +61,8 @@ public class ShipController extends InputAdapter
 		// apply left impulse, but only if max velocity is not reached yet
 		if(Gdx.input.isKeyPressed(Keys.LEFT) && vel.x > -MAX_VELOCITY)
 		{
-			this.ship.getBody().applyLinearImpulse(-2f, 0, pos.x, pos.y);
+			this.ship.getBody().applyAngularImpulse(20f);
+			//this.ship.getBody().applyLinearImpulse(-2f, 0, pos.x, pos.y);
 		}
 
 		// apply UP impulse

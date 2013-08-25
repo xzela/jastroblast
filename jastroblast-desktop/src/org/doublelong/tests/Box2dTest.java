@@ -131,7 +131,7 @@ public class Box2dTest implements ApplicationListener
 
 		batch.begin();
 		String str = "Anglar Vel: " + this.ship.getBody().getAngularVelocity();
-		str += "\nPosition: " + this.ship.getBody().getPosition();
+		str += "\nLocal Vel: " + this.ship.getLocalVelocity();
 		str += "\nLinear Vel: " + this.ship.getBody().getLinearVelocity();
 
 		font.drawMultiLine(batch, str, this.ship.getBody().getPosition().x, this.ship.getBody().getPosition().y);
