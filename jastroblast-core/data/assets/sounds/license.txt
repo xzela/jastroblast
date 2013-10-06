@@ -1,0 +1,5 @@
+Music by Sean Beeson (http://seanbeeson.com)
+-- /assets/sounds/vampire_fire.mp3
+
+Music By Fernando Froyd Dias (https://soundcloud.com/fernando-froyd-dias)
+-- /assets/sounds/inside_space_station_5.mp3
