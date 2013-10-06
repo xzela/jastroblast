@@ -7,7 +7,6 @@ import org.doublelong.jastroblast.renderer.ShipRenderer;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -75,7 +74,9 @@ public class Ship
 		List<Asteroid> list = this.space.getAsteroids();
 		for (Asteroid a: list)
 		{
-			if(Intersector.intersectRectangles(this.space.getShip().renderer.hb, a.renderer.hb))
+
+			//if(Intersector.intersectRectangles(this.space.getShip().renderer.hb, a.renderer.hb))
+			if(false)
 			{
 				//System.out.println("Hitting astroid");
 				a.renderer.debugHit = true;

@@ -52,7 +52,7 @@ public class ProjectionViewportCamera implements ApplicationListener
 		this.rv.put("UR", this.r.width + this.r.height);
 
 		this.renderer.setProjectionMatrix(camera.combined);
-		this.renderer.begin(ShapeType.Rectangle);
+		this.renderer.begin(ShapeType.Line);
 		this.renderer.setColor(Color.BLUE);
 		this.renderer.identity();
 		this.renderer.translate(this.position.x, this.position.y, 0f);

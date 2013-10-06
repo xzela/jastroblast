@@ -18,12 +18,6 @@ public class JastroBlast extends Game
 	public void create()
 	{
 		Texture.setEnforcePotImages(false);
-		this.initialize();
 		this.setScreen(new LoadingScreen(this));
-	}
-
-	private void initialize()
-	{
-
 	}
 }

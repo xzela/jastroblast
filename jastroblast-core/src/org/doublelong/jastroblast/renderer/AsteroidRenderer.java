@@ -86,15 +86,15 @@ public class AsteroidRenderer extends BaseRenderer
 			{
 				if (this.debugHit)
 				{
-					this.debugRenderer.begin(ShapeType.FilledRectangle);
+					this.debugRenderer.begin(ShapeType.Line);
 					this.debugRenderer.identity();
 					this.debugRenderer.setColor(Color.RED);
-					this.debugRenderer.filledRect(this.bb.x, this.bb.y, this.bb.width, this.bb.height);
+					this.debugRenderer.rect(this.bb.x, this.bb.y, this.bb.width, this.bb.height);
 					this.debugRenderer.end();
 				}
 				else
 				{
-					this.debugRenderer.begin(ShapeType.Rectangle);
+					this.debugRenderer.begin(ShapeType.Line);
 					this.debugRenderer.identity();
 					this.debugRenderer.setColor(Color.RED);
 					this.debugRenderer.rect(this.bb.x, this.bb.y, this.bb.width, this.bb.height);
@@ -103,17 +103,17 @@ public class AsteroidRenderer extends BaseRenderer
 			}
 			if (this.debugHit)
 			{
-				this.debugRenderer.begin(ShapeType.FilledRectangle);
+				this.debugRenderer.begin(ShapeType.Line);
 				this.debugRenderer.setColor(Color.BLUE);
 				this.debugRenderer.identity();
 				this.debugRenderer.translate(this.hb.x + this.hb.width, this.hb.y + this.hb.height, 0f);
 				this.debugRenderer.rotate(0, 0, 1, this.asteroid.getAngle());
-				this.debugRenderer.filledRect(-this.hb.width / 2, -this.hb.height / 2, this.hb.width, this.hb.height);
+				this.debugRenderer.rect(-this.hb.width / 2, -this.hb.height / 2, this.hb.width, this.hb.height);
 				this.debugRenderer.end();
 			}
 			else
 			{
-				this.debugRenderer.begin(ShapeType.Rectangle);
+				this.debugRenderer.begin(ShapeType.Line);
 				this.debugRenderer.setColor(Color.BLUE);
 				this.debugRenderer.identity();
 				this.debugRenderer.translate(this.hb.x + this.hb.width, this.hb.y + this.hb.height, 0f);

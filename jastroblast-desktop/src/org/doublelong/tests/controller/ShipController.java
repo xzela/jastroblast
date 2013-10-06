@@ -61,26 +61,26 @@ public class ShipController extends InputAdapter
 		// apply left impulse, but only if max velocity is not reached yet
 		if(Gdx.input.isKeyPressed(Keys.LEFT) && vel.x > -MAX_VELOCITY)
 		{
-			this.ship.getBody().applyAngularImpulse(20f);
+			this.ship.getBody().applyAngularImpulse(20f, false);
 			//this.ship.getBody().applyLinearImpulse(-2f, 0, pos.x, pos.y);
 		}
 
 		// apply UP impulse
 		if (Gdx.input.isKeyPressed(Keys.UP) && vel.y > -MAX_VELOCITY)
 		{
-			this.ship.getBody().applyLinearImpulse(0, 2f, pos.x, pos.y);
+			this.ship.getBody().applyLinearImpulse(0, 2f, pos.x, pos.y, true);
 		}
 
 		// apply UP impulse
 		if (Gdx.input.isKeyPressed(Keys.DOWN) && vel.y < MAX_VELOCITY)
 		{
-			this.ship.getBody().applyLinearImpulse(0, -2f, pos.x, pos.y);
+			this.ship.getBody().applyLinearImpulse(0, -2f, pos.x, pos.y, true);
 		}
 
 		// apply right impulse, but only if max velocity is not reached yet
 		if(Gdx.input.isKeyPressed(Keys.RIGHT) && vel.x < MAX_VELOCITY)
 		{
-			this.ship.getBody().applyLinearImpulse(2f, 0, pos.x, pos.y);
+			this.ship.getBody().applyLinearImpulse(2f, 0, pos.x, pos.y, true);
 		}
 	}
 }

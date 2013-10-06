@@ -64,13 +64,13 @@ public class ShipRenderer extends BaseRenderer
 		{
 			this.debugRenderer.setProjectionMatrix(cam.combined);
 
-			this.debugRenderer.begin(ShapeType.Rectangle);
+			this.debugRenderer.begin(ShapeType.Line);
 			this.debugRenderer.identity();
 			this.debugRenderer.setColor(Color.RED);
 			this.debugRenderer.rect(bb.x, bb.y, bb.width, bb.height);
 			this.debugRenderer.end();
 
-			this.debugRenderer.begin(ShapeType.Rectangle);
+			this.debugRenderer.begin(ShapeType.Line);
 			this.debugRenderer.setColor(Color.BLUE);
 			this.debugRenderer.identity();
 

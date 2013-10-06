@@ -17,12 +17,15 @@ public class MenuScreen extends AbstractScreen
 	private Image logo;
 	private Music menuMusic;
 
+	private boolean ready = false;
+
 	public MenuScreen(JastroBlast game)
 	{
 		super(game);
 		this.menuMusic = game.manager.get("assets/sounds/inside_space_station_5.mp3", Music.class);
 		this.menuMusic.setLooping(true);
 		this.menuMusic.play();
+
 		this.stage = new Stage();
 
 		this.logo = new Image(this.game.manager.get("assets/images/jastroblast_logo.png", Texture.class));
@@ -44,9 +47,29 @@ public class MenuScreen extends AbstractScreen
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		if(Gdx.input.isKeyPressed(Keys.SPACE))
 		{
-			//this.game.setScreen(new JastroScreen(this.game, true));
+			this.ready = true;
 		}
 		this.stage.act();
 		this.stage.draw();
+		if(this.ready)
+		{
+			this.loadGame();
+		}
+	}
+
+	private void loadGame()
+	{
+		if(!this.menuMusic.isPlaying())
+		{
+			this.game.setScreen(new JastroScreen(this.game, true));
+		}
+		if (this.menuMusic.getVolume() > 0)
+		{
+			this.menuMusic.setVolume(this.menuMusic.getVolume() - 0.01f);
+		}
+		else
+		{
+			this.menuMusic.stop();
+		}
 	}
 }
