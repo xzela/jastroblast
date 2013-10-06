@@ -3,7 +3,6 @@ package org.doublelong.jastroblast.screen;
 import org.doublelong.jastroblast.JastroBlast;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
@@ -19,7 +18,17 @@ public class LoadingScreen extends AbstractScreen
 	public LoadingScreen(JastroBlast game)
 	{
 		super(game);
-		// TODO Auto-generated constructor stub
+		this.stage = new Stage();
+		this.load();
+	}
+
+	public void load()
+	{
+		this.game.manager.load("assets/images/jastroblast_loading.png", Texture.class);
+		// call finishLoading to BLOCK the application
+		// this will load the "loading" image and then
+		// progressively load everything else.
+		this.game.manager.finishLoading();
 	}
 
 	@Override
@@ -28,11 +37,10 @@ public class LoadingScreen extends AbstractScreen
 		this.game.manager.load("assets/images/jastroblast_logo.png", Texture.class);
 		this.game.manager.load("assets/sounds/vampire_fire.mp3", Music.class);
 		this.game.manager.load("assets/sounds/inside_space_station_5.mp3", Music.class);
+		this.game.manager.load("assets/images/asteriod_big.png", Texture.class);
+		this.game.manager.load("assets/images/player.png", Texture.class);
 
-		this.game.manager.finishLoading();
-
-		this.stage = new Stage();
-		this.logo = new Image(this.game.manager.get("assets/images/jastroblast_logo.png", Texture.class));
+		this.logo = new Image(this.game.manager.get("assets/images/jastroblast_loading.png", Texture.class));
 		this.stage.addActor(this.logo);
 	}
 
@@ -48,14 +56,15 @@ public class LoadingScreen extends AbstractScreen
 	public void render(float delta)
 	{
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		if(this.game.manager.update())
+		if (this.game.manager.isLoaded("assets/images/jastroblast_loading.png"))
 		{
-			if(Gdx.input.isKeyPressed(Keys.SPACE))
+			this.stage.act();
+			this.stage.draw();
+
+			if(this.game.manager.update())
 			{
 				this.game.setScreen(new MenuScreen(this.game));
 			}
 		}
-		this.stage.act();
-		this.stage.draw();
 	}
 }
