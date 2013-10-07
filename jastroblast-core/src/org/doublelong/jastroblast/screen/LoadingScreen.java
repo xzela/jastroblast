@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class LoadingScreen extends AbstractScreen
@@ -14,6 +15,16 @@ public class LoadingScreen extends AbstractScreen
 	private Stage stage;
 
 	private Image logo;
+
+	Runnable onLoadingFinish = new Runnable()
+	{
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			game.setScreen(new MenuScreen(game));
+		}
+
+	};
 
 	public LoadingScreen(JastroBlast game)
 	{
@@ -63,7 +74,8 @@ public class LoadingScreen extends AbstractScreen
 
 			if(this.game.manager.update())
 			{
-				this.game.setScreen(new MenuScreen(this.game));
+				this.logo.addAction(Actions.sequence(Actions.fadeOut(.75f), Actions.run(this.onLoadingFinish)));
+				//this.game.setScreen(new MenuScreen(this.game));
 			}
 		}
 	}

@@ -24,7 +24,7 @@ public class MenuScreen extends AbstractScreen
 	{
 		@Override
 		public void run() {
-			// TODO Auto-generated method stub
+			menuMusic.stop();
 			game.setScreen(new JastroScreen(game, true));
 		}
 
@@ -46,8 +46,6 @@ public class MenuScreen extends AbstractScreen
 	public void show()
 	{
 		this.logo = new Image(this.game.manager.get("assets/images/jastroblast_logo.png", Texture.class));
-
-
 		this.stage.addActor(this.logo);
 	}
 
@@ -78,18 +76,10 @@ public class MenuScreen extends AbstractScreen
 
 	private void loadGame()
 	{
-		if(!this.menuMusic.isPlaying())
-		{
-			this.logo.addAction(Actions.sequence(Actions.fadeOut(.1f), Actions.run(this.onMenuFinish)));
-			//this.game.setScreen(new JastroScreen(this.game, true));
-		}
+		this.logo.addAction(Actions.sequence(Actions.fadeOut(1.75f), Actions.run(this.onMenuFinish)));
 		if (this.menuMusic.getVolume() > 0)
 		{
 			this.menuMusic.setVolume(this.menuMusic.getVolume() - 0.01f);
-		}
-		else
-		{
-			this.menuMusic.stop();
 		}
 	}
 }
