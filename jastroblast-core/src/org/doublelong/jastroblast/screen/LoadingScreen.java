@@ -1,11 +1,14 @@
 package org.doublelong.jastroblast.screen;
 
 import org.doublelong.jastroblast.JastroBlast;
+import org.doublelong.jastroblast.loaders.FreeTypeFontAssetLoader;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -45,6 +48,8 @@ public class LoadingScreen extends AbstractScreen
 	@Override
 	public void show()
 	{
+		this.game.manager.setLoader(BitmapFont.class, new FreeTypeFontAssetLoader(new InternalFileHandleResolver()));
+		this.game.manager.load("assets/fonts/kenpixel_blocks.ttf", BitmapFont.class);
 		this.game.manager.load("assets/images/jastroblast_logo.png", Texture.class);
 		this.game.manager.load("assets/sounds/vampire_fire.mp3", Music.class);
 		this.game.manager.load("assets/sounds/inside_space_station_5.mp3", Music.class);

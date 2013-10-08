@@ -5,11 +5,16 @@ import org.doublelong.jastroblast.JastroBlast;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class MenuScreen extends AbstractScreen
 {
@@ -17,6 +22,7 @@ public class MenuScreen extends AbstractScreen
 	public JastroBlast game;
 	private Image logo;
 	private Music menuMusic;
+	private Table table;
 
 	private boolean ready = false;
 
@@ -37,15 +43,28 @@ public class MenuScreen extends AbstractScreen
 		this.menuMusic = game.manager.get("assets/sounds/inside_space_station_5.mp3", Music.class);
 		this.menuMusic.setLooping(true);
 		this.menuMusic.play();
-
+		this.table = new Table();
 		this.stage = new Stage();
+		this.initializeTable();
+	}
 
+	private void initializeTable()
+	{
+		this.table.setFillParent(true);
+		this.table.add(new Label("Start!", new LabelStyle(this.game.manager.get("assets/fonts/kenpixel_blocks.ttf", BitmapFont.class), Color.RED)));
+		this.table.row();
+		this.table.add(new Label("Options", new LabelStyle(this.game.manager.get("assets/fonts/kenpixel_blocks.ttf", BitmapFont.class), Color.RED)));
+		this.table.row();
+		this.table.add(new Label("Credits", new LabelStyle(this.game.manager.get("assets/fonts/kenpixel_blocks.ttf", BitmapFont.class), Color.RED)));
+		this.table.row();
+		this.table.add(new Label("Quit!", new LabelStyle(this.game.manager.get("assets/fonts/kenpixel_blocks.ttf", BitmapFont.class), Color.RED)));
 	}
 
 	@Override
 	public void show()
 	{
 		this.logo = new Image(this.game.manager.get("assets/images/jastroblast_logo.png", Texture.class));
+		this.stage.addActor(this.table);
 		this.stage.addActor(this.logo);
 	}
 

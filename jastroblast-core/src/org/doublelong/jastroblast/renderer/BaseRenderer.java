@@ -29,7 +29,7 @@ public class BaseRenderer
 		this.debugRenderer.setColor(Color.RED);
 		this.debug = true;
 		this.generator = new FreeTypeFontGenerator(Gdx.files.internal("assets/fonts/kenpixel_blocks.ttf"));
-		this.font = this.generator.generateFont(14);
+		this.font = this.generator.generateFont(16);
 
 		this.format = NumberFormat.getNumberInstance();
 		this.format.setMinimumFractionDigits(2);
