@@ -1,6 +1,5 @@
 package org.doublelong.jastroblast.screen;
 
-import org.doublelong.jastroblast.Inputs;
 import org.doublelong.jastroblast.JastroBlast;
 import org.doublelong.jastroblast.entity.Space;
 
@@ -30,7 +29,7 @@ public class JastroScreen implements Screen
 	private final SpriteBatch batch;
 	private final Space space;
 
-	private final Inputs input;
+	//private final Inputs input;
 	public final float ppuX;
 	public final float ppuY;
 
@@ -53,7 +52,7 @@ public class JastroScreen implements Screen
 		this.batch = new SpriteBatch();
 		this.cam = new OrthographicCamera();
 
-		this.input = new Inputs(this.space.getShip().controller);
+		//this.input = new Inputs(this.space.getShip().controller);
 
 	}
 
@@ -139,7 +138,7 @@ public class JastroScreen implements Screen
 	public void show()
 	{
 		// TODO Auto-generated method stub
-		Gdx.input.setInputProcessor(this.input);
+		//Gdx.input.setInputProcessor(this.input);
 	}
 
 	@Override

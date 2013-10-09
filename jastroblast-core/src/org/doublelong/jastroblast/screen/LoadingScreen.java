@@ -58,6 +58,7 @@ public class LoadingScreen extends AbstractScreen
 		this.game.manager.load(SoundManager.MENU_MUSIC, Music.class);
 		this.game.manager.load(TextureManager.ASTERIOD_BIG, Texture.class);
 		this.game.manager.load(TextureManager.PLAYER, Texture.class);
+		this.game.manager.load(TextureManager.MENU_CURSOR, Texture.class);
 
 		this.logo = new Image(this.game.manager.get(TextureManager.LOADING, Texture.class));
 		this.stage.addActor(this.logo);

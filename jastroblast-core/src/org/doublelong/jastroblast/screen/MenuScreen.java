@@ -1,6 +1,7 @@
 package org.doublelong.jastroblast.screen;
 
 import org.doublelong.jastroblast.JastroBlast;
+import org.doublelong.jastroblast.entity.MainMenu;
 import org.doublelong.jastroblast.loaders.FontManager;
 import org.doublelong.jastroblast.loaders.SoundManager;
 import org.doublelong.jastroblast.loaders.TextureManager;
@@ -26,6 +27,8 @@ public class MenuScreen extends AbstractScreen
 	private Image logo;
 	private Music menuMusic;
 	private Table table;
+	private MainMenu menu;
+	private Image cursor;
 
 	private boolean ready = false;
 
@@ -43,41 +46,46 @@ public class MenuScreen extends AbstractScreen
 	{
 		super(game);
 		this.game = game;
+		this.menu = new MainMenu();
 		this.menuMusic = game.manager.get(SoundManager.MENU_MUSIC, Music.class);
 		this.menuMusic.setLooping(true);
 		this.menuMusic.play();
 		this.table = new Table();
 		this.stage = new Stage();
+		this.logo = new Image(this.game.manager.get(TextureManager.LOGO, Texture.class));
+		this.cursor = new Image(this.game.manager.get(TextureManager.MENU_CURSOR, Texture.class));
 		this.initializeTable();
 	}
 
 	private void initializeTable()
 	{
-		this.table.setFillParent(true);
-		this.table.add(new Label("Start!", new LabelStyle(this.game.manager.get(FontManager.BLOCK_FONT, BitmapFont.class), Color.RED)));
-		this.table.row();
-		this.table.add(new Label("Options", new LabelStyle(this.game.manager.get(FontManager.BLOCK_FONT, BitmapFont.class), Color.RED)));
-		this.table.row();
-		this.table.add(new Label("Credits", new LabelStyle(this.game.manager.get(FontManager.BLOCK_FONT, BitmapFont.class), Color.RED)));
-		this.table.row();
-		this.table.add(new Label("Quit!", new LabelStyle(this.game.manager.get(FontManager.BLOCK_FONT, BitmapFont.class), Color.RED)));
+		this.table.debug();
+		//this.table.setFillParent(true);
+
+		for(String element : this.menu.menuElements)
+		{
+			this.table.add(new Label(element, new LabelStyle(this.game.manager.get(FontManager.BLOCK_FONT, BitmapFont.class), Color.RED)));
+			this.table.row();
+		}
 	}
 
 	@Override
 	public void show()
 	{
-		this.logo = new Image(this.game.manager.get(TextureManager.LOGO, Texture.class));
 		this.stage.addActor(this.table);
 		this.stage.addActor(this.logo);
+		Gdx.input.setInputProcessor(this.menu.controller);
 	}
 
 	@Override
 	public void resize(int width, int height)
 	{
 		this.stage.setViewport(width, height, false);
-
 		this.logo.setX((width - this.logo.getWidth()) / 2); //center the logo horizontally
 		this.logo.setY((width - this.logo.getHeight()) / 2 + this.logo.getHeight());
+
+		this.table.setWidth((width - this.table.getWidth()) / 2);
+		this.table.setHeight(height / 2);
 	}
 
 	@Override
@@ -92,8 +100,9 @@ public class MenuScreen extends AbstractScreen
 		this.stage.draw();
 		if(this.ready)
 		{
-			this.loadGame();
+			//this.loadGame();
 		}
+		Table.drawDebug(this.stage);
 	}
 
 	private void loadGame()
