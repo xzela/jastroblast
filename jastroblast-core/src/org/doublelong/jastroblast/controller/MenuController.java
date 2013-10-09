@@ -20,11 +20,11 @@ public class MenuController implements InputProcessor
 		{
 		case Inputs.MENU_UP:
 			this.menu.moveUp();
-			System.out.println(this.menu.currentMenuIndex);
+			this.menu.select();
 			break;
 		case Inputs.MENU_DOWN:
 			this.menu.moveDown();
-			System.out.println(this.menu.currentMenuIndex);
+			this.menu.select();
 			break;
 		case Inputs.MENU_SELECT:
 			this.menu.select();

@@ -1,23 +1,22 @@
 package org.doublelong.jastroblast.screen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.doublelong.jastroblast.JastroBlast;
-import org.doublelong.jastroblast.entity.MainMenu;
-import org.doublelong.jastroblast.loaders.FontManager;
+import org.doublelong.jastroblast.entity.Menu;
+import org.doublelong.jastroblast.entity.MenuButton;
 import org.doublelong.jastroblast.loaders.SoundManager;
 import org.doublelong.jastroblast.loaders.TextureManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class MenuScreen extends AbstractScreen
@@ -27,7 +26,7 @@ public class MenuScreen extends AbstractScreen
 	private Image logo;
 	private Music menuMusic;
 	private Table table;
-	private MainMenu menu;
+	private Menu menu;
 	private Image cursor;
 
 	private boolean ready = false;
@@ -46,7 +45,6 @@ public class MenuScreen extends AbstractScreen
 	{
 		super(game);
 		this.game = game;
-		this.menu = new MainMenu();
 		this.menuMusic = game.manager.get(SoundManager.MENU_MUSIC, Music.class);
 		this.menuMusic.setLooping(true);
 		this.menuMusic.play();
@@ -54,7 +52,19 @@ public class MenuScreen extends AbstractScreen
 		this.stage = new Stage();
 		this.logo = new Image(this.game.manager.get(TextureManager.LOGO, Texture.class));
 		this.cursor = new Image(this.game.manager.get(TextureManager.MENU_CURSOR, Texture.class));
+		this.menu = new Menu(this.loadMenuItems());
 		this.initializeTable();
+
+	}
+
+	private List<MenuButton> loadMenuItems()
+	{
+		List<MenuButton> list = new ArrayList<MenuButton>();
+		list.add(new MenuButton("Play!"));
+		list.add(new MenuButton("Options"));
+		list.add(new MenuButton("Credits"));
+		list.add(new MenuButton("Quit"));
+		return list;
 	}
 
 	private void initializeTable()
@@ -62,9 +72,9 @@ public class MenuScreen extends AbstractScreen
 		this.table.debug();
 		//this.table.setFillParent(true);
 
-		for(String element : this.menu.menuElements)
+		for(MenuButton button : this.menu.elements)
 		{
-			this.table.add(new Label(element, new LabelStyle(this.game.manager.get(FontManager.BLOCK_FONT, BitmapFont.class), Color.RED)));
+			this.table.add(button.render());
 			this.table.row();
 		}
 	}

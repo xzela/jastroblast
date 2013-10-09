@@ -2,16 +2,21 @@ package org.doublelong.jastroblast.entity;
 
 import java.util.List;
 
+import org.doublelong.jastroblast.controller.MenuController;
 
-public abstract class Menu
+
+public class Menu
 {
 	public int currentMenuIndex;
-	protected List<String> elements;
+	public List<MenuButton> elements;
+	public MenuController controller;
 
-	public Menu(List<String> elements)
+
+	public Menu(List<MenuButton> elements)
 	{
 		this.currentMenuIndex = 0;
 		this.elements = elements;
+		this.controller = new MenuController(this);
 	}
 
 	public void moveUp()
@@ -40,5 +45,9 @@ public abstract class Menu
 		return this.currentMenuIndex == this.elements.size() - 1;
 	}
 
-	public abstract void select();
+	public void select()
+	{
+		MenuButton button = this.elements.get(this.currentMenuIndex);
+		System.out.println(button.getLabel());
+	}
 }
