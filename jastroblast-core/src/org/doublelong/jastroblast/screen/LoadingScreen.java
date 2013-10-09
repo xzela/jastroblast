@@ -1,7 +1,10 @@
 package org.doublelong.jastroblast.screen;
 
 import org.doublelong.jastroblast.JastroBlast;
+import org.doublelong.jastroblast.loaders.FontManager;
 import org.doublelong.jastroblast.loaders.FreeTypeFontAssetLoader;
+import org.doublelong.jastroblast.loaders.SoundManager;
+import org.doublelong.jastroblast.loaders.TextureManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
@@ -38,7 +41,7 @@ public class LoadingScreen extends AbstractScreen
 
 	public void load()
 	{
-		this.game.manager.load("assets/images/jastroblast_loading.png", Texture.class);
+		this.game.manager.load(TextureManager.LOADING, Texture.class);
 		// call finishLoading to BLOCK the application
 		// this will load the "loading" image and then
 		// progressively load everything else.
@@ -49,14 +52,14 @@ public class LoadingScreen extends AbstractScreen
 	public void show()
 	{
 		this.game.manager.setLoader(BitmapFont.class, new FreeTypeFontAssetLoader(new InternalFileHandleResolver()));
-		this.game.manager.load("assets/fonts/kenpixel_blocks.ttf", BitmapFont.class);
-		this.game.manager.load("assets/images/jastroblast_logo.png", Texture.class);
-		this.game.manager.load("assets/sounds/vampire_fire.mp3", Music.class);
-		this.game.manager.load("assets/sounds/inside_space_station_5.mp3", Music.class);
-		this.game.manager.load("assets/images/asteriod_big.png", Texture.class);
-		this.game.manager.load("assets/images/player.png", Texture.class);
+		this.game.manager.load(FontManager.BLOCK_FONT, BitmapFont.class);
+		this.game.manager.load(TextureManager.LOGO, Texture.class);
+		this.game.manager.load(SoundManager.GAME_MUSIC, Music.class);
+		this.game.manager.load(SoundManager.MENU_MUSIC, Music.class);
+		this.game.manager.load(TextureManager.ASTERIOD_BIG, Texture.class);
+		this.game.manager.load(TextureManager.PLAYER, Texture.class);
 
-		this.logo = new Image(this.game.manager.get("assets/images/jastroblast_loading.png", Texture.class));
+		this.logo = new Image(this.game.manager.get(TextureManager.LOADING, Texture.class));
 		this.stage.addActor(this.logo);
 	}
 

@@ -1,6 +1,9 @@
 package org.doublelong.jastroblast.screen;
 
 import org.doublelong.jastroblast.JastroBlast;
+import org.doublelong.jastroblast.loaders.FontManager;
+import org.doublelong.jastroblast.loaders.SoundManager;
+import org.doublelong.jastroblast.loaders.TextureManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -40,7 +43,7 @@ public class MenuScreen extends AbstractScreen
 	{
 		super(game);
 		this.game = game;
-		this.menuMusic = game.manager.get("assets/sounds/inside_space_station_5.mp3", Music.class);
+		this.menuMusic = game.manager.get(SoundManager.MENU_MUSIC, Music.class);
 		this.menuMusic.setLooping(true);
 		this.menuMusic.play();
 		this.table = new Table();
@@ -51,19 +54,19 @@ public class MenuScreen extends AbstractScreen
 	private void initializeTable()
 	{
 		this.table.setFillParent(true);
-		this.table.add(new Label("Start!", new LabelStyle(this.game.manager.get("assets/fonts/kenpixel_blocks.ttf", BitmapFont.class), Color.RED)));
+		this.table.add(new Label("Start!", new LabelStyle(this.game.manager.get(FontManager.BLOCK_FONT, BitmapFont.class), Color.RED)));
 		this.table.row();
-		this.table.add(new Label("Options", new LabelStyle(this.game.manager.get("assets/fonts/kenpixel_blocks.ttf", BitmapFont.class), Color.RED)));
+		this.table.add(new Label("Options", new LabelStyle(this.game.manager.get(FontManager.BLOCK_FONT, BitmapFont.class), Color.RED)));
 		this.table.row();
-		this.table.add(new Label("Credits", new LabelStyle(this.game.manager.get("assets/fonts/kenpixel_blocks.ttf", BitmapFont.class), Color.RED)));
+		this.table.add(new Label("Credits", new LabelStyle(this.game.manager.get(FontManager.BLOCK_FONT, BitmapFont.class), Color.RED)));
 		this.table.row();
-		this.table.add(new Label("Quit!", new LabelStyle(this.game.manager.get("assets/fonts/kenpixel_blocks.ttf", BitmapFont.class), Color.RED)));
+		this.table.add(new Label("Quit!", new LabelStyle(this.game.manager.get(FontManager.BLOCK_FONT, BitmapFont.class), Color.RED)));
 	}
 
 	@Override
 	public void show()
 	{
-		this.logo = new Image(this.game.manager.get("assets/images/jastroblast_logo.png", Texture.class));
+		this.logo = new Image(this.game.manager.get(TextureManager.LOGO, Texture.class));
 		this.stage.addActor(this.table);
 		this.stage.addActor(this.logo);
 	}
