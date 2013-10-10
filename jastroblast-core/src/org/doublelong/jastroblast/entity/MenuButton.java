@@ -20,9 +20,10 @@ public class MenuButton
 	public Screen getScreen() { return this.screen;}
 	public void setScreen(Screen screen) { this.screen = screen; }
 
-	public MenuButton(String label)
+	public MenuButton(String label, Screen screen)
 	{
 		this.label = label;
+		this.screen = screen;
 		this.font = JastroBlast.manager.get(FontManager.BLOCK_FONT, BitmapFont.class);
 		this.color = Color.RED;
 	}
@@ -32,5 +33,9 @@ public class MenuButton
 		return new Label(this.label, new LabelStyle(this.font, this.color));
 	}
 
+	public Screen select()
+	{
+		return this.screen;
+	}
 
 }

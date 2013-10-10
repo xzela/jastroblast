@@ -3,6 +3,7 @@ package org.doublelong.jastroblast.screen;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.doublelong.jastroblast.Inputs;
 import org.doublelong.jastroblast.JastroBlast;
 import org.doublelong.jastroblast.entity.Menu;
 import org.doublelong.jastroblast.entity.MenuButton;
@@ -11,6 +12,8 @@ import org.doublelong.jastroblast.loaders.TextureManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
@@ -60,10 +63,10 @@ public class MenuScreen extends AbstractScreen
 	private List<MenuButton> loadMenuItems()
 	{
 		List<MenuButton> list = new ArrayList<MenuButton>();
-		list.add(new MenuButton("Play!"));
-		list.add(new MenuButton("Options"));
-		list.add(new MenuButton("Credits"));
-		list.add(new MenuButton("Quit"));
+		list.add(new MenuButton("Play!", new JastroScreen(this.game, true)));
+		list.add(new MenuButton("Options", null));
+		list.add(new MenuButton("Credits", null));
+		list.add(new MenuButton("Quit", null));
 		return list;
 	}
 
@@ -84,7 +87,7 @@ public class MenuScreen extends AbstractScreen
 	{
 		this.stage.addActor(this.table);
 		this.stage.addActor(this.logo);
-		Gdx.input.setInputProcessor(this.menu.controller);
+		Gdx.input.setInputProcessor(new MenuController(this.menu));
 	}
 
 	@Override
@@ -121,6 +124,83 @@ public class MenuScreen extends AbstractScreen
 		if (this.menuMusic.getVolume() > 0)
 		{
 			this.menuMusic.setVolume(this.menuMusic.getVolume() - 0.01f);
+		}
+	}
+
+	public void select(Screen screen)
+	{
+		this.game.setScreen(screen);
+	}
+
+
+
+
+	class MenuController implements InputProcessor
+	{
+		private Menu menu;
+
+		public MenuController(Menu menu)
+		{
+			this.menu = menu;
+		}
+
+		@Override
+		public boolean keyDown(int keycode) {
+			switch(keycode)
+			{
+			case Inputs.MENU_UP:
+				this.menu.moveUp();
+				break;
+			case Inputs.MENU_DOWN:
+				this.menu.moveDown();
+				break;
+			case Inputs.MENU_SELECT:
+				select(this.menu.select());
+				break;
+			}
+			return false;
+		}
+
+		@Override
+		public boolean keyUp(int keycode) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean keyTyped(char character) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean touchDragged(int screenX, int screenY, int pointer) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean mouseMoved(int screenX, int screenY) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean scrolled(int amount) {
+			// TODO Auto-generated method stub
+			return false;
 		}
 	}
 }
