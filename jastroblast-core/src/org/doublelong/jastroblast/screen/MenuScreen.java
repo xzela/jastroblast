@@ -66,7 +66,7 @@ public class MenuScreen extends AbstractScreen
 		list.add(new MenuButton("Play!", new JastroScreen(this.game, true)));
 		list.add(new MenuButton("Options", null));
 		list.add(new MenuButton("Credits", null));
-		list.add(new MenuButton("Quit", null));
+		list.add(new MenuButton("Quit", new QuitScreen(this.game)));
 		return list;
 	}
 
