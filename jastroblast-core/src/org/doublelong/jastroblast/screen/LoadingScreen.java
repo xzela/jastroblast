@@ -41,26 +41,26 @@ public class LoadingScreen extends AbstractScreen
 
 	public void load()
 	{
-		this.game.manager.load(TextureManager.LOADING, Texture.class);
+		JastroBlast.manager.load(TextureManager.LOADING, Texture.class);
 		// call finishLoading to BLOCK the application
 		// this will load the "loading" image and then
 		// progressively load everything else.
-		this.game.manager.finishLoading();
+		JastroBlast.manager.finishLoading();
 	}
 
 	@Override
 	public void show()
 	{
-		this.game.manager.setLoader(BitmapFont.class, new FreeTypeFontAssetLoader(new InternalFileHandleResolver()));
-		this.game.manager.load(FontManager.BLOCK_FONT, BitmapFont.class);
-		this.game.manager.load(TextureManager.LOGO, Texture.class);
-		this.game.manager.load(SoundManager.GAME_MUSIC, Music.class);
-		this.game.manager.load(SoundManager.MENU_MUSIC, Music.class);
-		this.game.manager.load(TextureManager.ASTERIOD_BIG, Texture.class);
-		this.game.manager.load(TextureManager.PLAYER, Texture.class);
-		this.game.manager.load(TextureManager.MENU_CURSOR, Texture.class);
+		JastroBlast.manager.setLoader(BitmapFont.class, new FreeTypeFontAssetLoader(new InternalFileHandleResolver()));
+		JastroBlast.manager.load(FontManager.BLOCK_FONT, BitmapFont.class);
+		JastroBlast.manager.load(TextureManager.LOGO, Texture.class);
+		JastroBlast.manager.load(SoundManager.GAME_MUSIC, Music.class);
+		JastroBlast.manager.load(SoundManager.MENU_MUSIC, Music.class);
+		JastroBlast.manager.load(TextureManager.ASTERIOD_BIG, Texture.class);
+		JastroBlast.manager.load(TextureManager.PLAYER, Texture.class);
+		JastroBlast.manager.load(TextureManager.MENU_CURSOR, Texture.class);
 
-		this.logo = new Image(this.game.manager.get(TextureManager.LOADING, Texture.class));
+		this.logo = new Image(JastroBlast.manager.get(TextureManager.LOADING, Texture.class));
 		this.stage.addActor(this.logo);
 	}
 
@@ -76,12 +76,12 @@ public class LoadingScreen extends AbstractScreen
 	public void render(float delta)
 	{
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		if (this.game.manager.isLoaded("assets/images/jastroblast_loading.png"))
+		if (JastroBlast.manager.isLoaded("assets/images/jastroblast_loading.png"))
 		{
 			this.stage.act();
 			this.stage.draw();
 
-			if(this.game.manager.update())
+			if(JastroBlast.manager.update())
 			{
 				this.logo.addAction(Actions.sequence(Actions.fadeOut(.75f), Actions.run(this.onLoadingFinish)));
 				//this.game.setScreen(new MenuScreen(this.game));

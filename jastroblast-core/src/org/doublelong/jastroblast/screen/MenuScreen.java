@@ -11,7 +11,6 @@ import org.doublelong.jastroblast.loaders.SoundManager;
 import org.doublelong.jastroblast.loaders.TextureManager;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
@@ -32,15 +31,12 @@ public class MenuScreen extends AbstractScreen
 	private Menu menu;
 	private Image cursor;
 
-	private boolean ready = false;
-
 	Runnable onMenuFinish = new Runnable()
 	{
 		@Override
 		public void run()
 		{
 			menuMusic.stop();
-			game.setScreen(new JastroScreen(game, true));
 		}
 
 	};
@@ -49,13 +45,13 @@ public class MenuScreen extends AbstractScreen
 	{
 		super(game);
 		this.game = game;
-		this.menuMusic = this.game.manager.get(SoundManager.MENU_MUSIC, Music.class);
+		this.menuMusic = JastroBlast.manager.get(SoundManager.MENU_MUSIC, Music.class);
 		this.menuMusic.setLooping(true);
 		this.menuMusic.play();
 		this.table = new Table();
 		this.stage = new Stage();
-		this.logo = new Image(this.game.manager.get(TextureManager.LOGO, Texture.class));
-		this.cursor = new Image(this.game.manager.get(TextureManager.MENU_CURSOR, Texture.class));
+		this.logo = new Image(JastroBlast.manager.get(TextureManager.LOGO, Texture.class));
+		this.cursor = new Image(JastroBlast.manager.get(TextureManager.MENU_CURSOR, Texture.class));
 
 		this.menu = new Menu(this.loadMenuItems(), this.cursor);
 
@@ -111,32 +107,35 @@ public class MenuScreen extends AbstractScreen
 	public void render(float detla)
 	{
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		if(Gdx.input.isKeyPressed(Keys.SPACE))
-		{
-			this.ready = true;
-		}
 		this.stage.act();
 		this.stage.draw();
 		this.menu.updateCursor();
-		if(this.ready)
-		{
-			//this.loadGame();
-		}
-		Table.drawDebug(this.stage);
+		//Table.drawDebug(this.stage);
 	}
 
-	private void loadGame()
+	/**
+	 * TODO Fix the screen fading DOES NOT WORK
+	 * 
+	 * @param screen
+	 */
+	private void fadeToScreen(Screen screen)
 	{
+		// race condition!
 		this.logo.addAction(Actions.sequence(Actions.fadeOut(1.75f), Actions.run(this.onMenuFinish)));
 		if (this.menuMusic.getVolume() > 0)
 		{
 			this.menuMusic.setVolume(this.menuMusic.getVolume() - 0.01f);
 		}
+		this.menuMusic.stop();
+		this.game.setScreen(screen);
 	}
 
 	public void select(Screen screen)
 	{
-		this.game.setScreen(screen);
+		if (screen != null)
+		{
+			this.fadeToScreen(screen);
+		}
 	}
 
 
