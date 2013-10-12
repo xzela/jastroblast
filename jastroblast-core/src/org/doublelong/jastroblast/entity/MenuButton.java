@@ -11,8 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 
 public class MenuButton
 {
-	private String label;
-	public String getLabel() { return this.label;}
+	private Label label;
+	public Label getLabel() { return this.label; }
+	private String text;
+	public String getText() { return this.text;}
 	private BitmapFont font;
 	private Color color;
 
@@ -20,9 +22,9 @@ public class MenuButton
 	public Screen getScreen() { return this.screen;}
 	public void setScreen(Screen screen) { this.screen = screen; }
 
-	public MenuButton(String label, Screen screen)
+	public MenuButton(String text, Screen screen)
 	{
-		this.label = label;
+		this.text = text;
 		this.screen = screen;
 		this.font = JastroBlast.manager.get(FontManager.BLOCK_FONT, BitmapFont.class);
 		this.color = Color.RED;
@@ -30,7 +32,8 @@ public class MenuButton
 
 	public Label render()
 	{
-		return new Label(this.label, new LabelStyle(this.font, this.color));
+		this.label = new Label(this.text, new LabelStyle(this.font, this.color));
+		return this.label;
 	}
 
 	public Screen select()

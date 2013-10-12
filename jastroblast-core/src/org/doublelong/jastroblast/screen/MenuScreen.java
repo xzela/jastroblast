@@ -37,7 +37,8 @@ public class MenuScreen extends AbstractScreen
 	Runnable onMenuFinish = new Runnable()
 	{
 		@Override
-		public void run() {
+		public void run()
+		{
 			menuMusic.stop();
 			game.setScreen(new JastroScreen(game, true));
 		}
@@ -48,14 +49,16 @@ public class MenuScreen extends AbstractScreen
 	{
 		super(game);
 		this.game = game;
-		this.menuMusic = game.manager.get(SoundManager.MENU_MUSIC, Music.class);
+		this.menuMusic = this.game.manager.get(SoundManager.MENU_MUSIC, Music.class);
 		this.menuMusic.setLooping(true);
 		this.menuMusic.play();
 		this.table = new Table();
 		this.stage = new Stage();
 		this.logo = new Image(this.game.manager.get(TextureManager.LOGO, Texture.class));
 		this.cursor = new Image(this.game.manager.get(TextureManager.MENU_CURSOR, Texture.class));
-		this.menu = new Menu(this.loadMenuItems());
+
+		this.menu = new Menu(this.loadMenuItems(), this.cursor);
+
 		this.initializeTable();
 
 	}
@@ -63,21 +66,23 @@ public class MenuScreen extends AbstractScreen
 	private List<MenuButton> loadMenuItems()
 	{
 		List<MenuButton> list = new ArrayList<MenuButton>();
-		list.add(new MenuButton("Play!", new JastroScreen(this.game, true)));
-		list.add(new MenuButton("Options", null));
-		list.add(new MenuButton("Credits", null));
-		list.add(new MenuButton("Quit", new QuitScreen(this.game)));
+		{
+			list.add(new MenuButton("Play!", new JastroScreen(this.game, true)));
+			list.add(new MenuButton("Options", null));
+			list.add(new MenuButton("Credits", null));
+			list.add(new MenuButton("Quit", new QuitScreen(this.game)));
+		}
 		return list;
 	}
 
 	private void initializeTable()
 	{
-		this.table.debug();
-		//this.table.setFillParent(true);
+		//this.table.debug();
+		this.table.setFillParent(true);
 
 		for(MenuButton button : this.menu.elements)
 		{
-			this.table.add(button.render());
+			this.table.add(button.render()).left();
 			this.table.row();
 		}
 	}
@@ -87,6 +92,7 @@ public class MenuScreen extends AbstractScreen
 	{
 		this.stage.addActor(this.table);
 		this.stage.addActor(this.logo);
+		this.stage.addActor(this.cursor);
 		Gdx.input.setInputProcessor(new MenuController(this.menu));
 	}
 
@@ -111,6 +117,7 @@ public class MenuScreen extends AbstractScreen
 		}
 		this.stage.act();
 		this.stage.draw();
+		this.menu.updateCursor();
 		if(this.ready)
 		{
 			//this.loadGame();
@@ -133,8 +140,6 @@ public class MenuScreen extends AbstractScreen
 	}
 
 
-
-
 	class MenuController implements InputProcessor
 	{
 		private Menu menu;
@@ -150,9 +155,11 @@ public class MenuScreen extends AbstractScreen
 			{
 			case Inputs.MENU_UP:
 				this.menu.moveUp();
+				this.menu.updateCursor();
 				break;
 			case Inputs.MENU_DOWN:
 				this.menu.moveDown();
+				this.menu.updateCursor();
 				break;
 			case Inputs.MENU_SELECT:
 				select(this.menu.select());
