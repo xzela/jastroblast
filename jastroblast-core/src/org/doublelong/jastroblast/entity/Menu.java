@@ -2,22 +2,29 @@ package org.doublelong.jastroblast.entity;
 
 import java.util.List;
 
-import com.badlogic.gdx.Screen;
+import org.doublelong.jastroblast.screen.AbstractScreen;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 
-public class Menu
+public abstract class Menu
 {
 	public int currentMenuIndex;
 	public List<MenuButton> elements;
 	private Actor cursor;
+	private AbstractScreen currentScreen;
+	public AbstractScreen getCurrentScreen() { return this.currentScreen; }
 
-	public Menu(List<MenuButton> elements, Actor cursor)
+	protected Table table;
+	public Table getTable() { return this.table; }
+
+
+	public Menu(Actor cursor)
 	{
 		this.currentMenuIndex = 0;
-		this.elements = elements;
 		this.cursor = cursor;
 	}
 
@@ -41,6 +48,7 @@ public class Menu
 	{
 		Label button = this.elements.get(this.currentMenuIndex).getLabel();
 		this.setCursorPosition(button);
+		this.currentScreen = (AbstractScreen) this.elements.get(this.currentMenuIndex).getScreen();
 	}
 
 	public void setCursorPosition(Label element)
@@ -60,8 +68,5 @@ public class Menu
 		return this.currentMenuIndex == this.elements.size() - 1;
 	}
 
-	public Screen select()
-	{
-		return this.elements.get(this.currentMenuIndex).select();
-	}
+	public abstract void selectScreen();
 }

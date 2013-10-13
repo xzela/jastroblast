@@ -35,10 +35,4 @@ public class MenuButton
 		this.label = new Label(this.text, new LabelStyle(this.font, this.color));
 		return this.label;
 	}
-
-	public Screen select()
-	{
-		return this.screen;
-	}
-
 }

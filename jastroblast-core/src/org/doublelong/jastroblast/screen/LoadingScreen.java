@@ -27,7 +27,7 @@ public class LoadingScreen extends AbstractScreen
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			game.setScreen(new MenuScreen(game));
+			game.setScreen(new MainScreen(game));
 		}
 
 	};

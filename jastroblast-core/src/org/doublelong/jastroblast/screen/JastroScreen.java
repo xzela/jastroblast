@@ -4,7 +4,6 @@ import org.doublelong.jastroblast.JastroBlast;
 import org.doublelong.jastroblast.entity.Space;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -15,7 +14,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class JastroScreen implements Screen
+public class JastroScreen extends AbstractScreen
 {
 
 	private static final int VIRTUAL_WIDTH = 800;
@@ -42,6 +41,7 @@ public class JastroScreen implements Screen
 
 	public JastroScreen(JastroBlast game, boolean debug)
 	{
+		super(game);
 		// define the pixels
 		this.debug = debug;
 		this.ppuX = game.WINDOW_WIDTH / Space.WIDTH;
@@ -132,34 +132,6 @@ public class JastroScreen implements Screen
 		this.cam.translate(this.viewport.width / 2, this.viewport.height / 2, 0);
 		//this.cam = new OrthographicCamera(this.viewport.width / 2,  this.viewport.height / 2);
 		this.cam = new OrthographicCamera(width,  height);
-	}
-
-	@Override
-	public void show()
-	{
-		// TODO Auto-generated method stub
-		//Gdx.input.setInputProcessor(this.input);
-	}
-
-	@Override
-	public void hide()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void pause()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void resume()
-	{
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

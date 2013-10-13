@@ -1,16 +1,23 @@
 package org.doublelong.jastroblast.screen;
 
 import org.doublelong.jastroblast.JastroBlast;
+import org.doublelong.jastroblast.entity.Menu;
 
 import com.badlogic.gdx.Screen;
 
 public class AbstractScreen implements Screen
 {
 	protected JastroBlast game;
+	public Menu menu;
 
 	public AbstractScreen(JastroBlast game)
 	{
 		this.game = game;
+	}
+
+	public void selectScreen(Screen screen)
+	{
+		System.out.println("inside Abstract Screen");
 	}
 
 	@Override
