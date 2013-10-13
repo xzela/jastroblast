@@ -5,19 +5,15 @@ import org.doublelong.jastroblast.entity.Menu;
 
 import com.badlogic.gdx.Screen;
 
-public class AbstractScreen implements Screen
+public abstract class AbstractScreen implements Screen
 {
 	protected JastroBlast game;
-	public Menu menu;
+	protected Menu menu;
+	public Menu getMenu() { return this.menu; }
 
 	public AbstractScreen(JastroBlast game)
 	{
 		this.game = game;
-	}
-
-	public void selectScreen(Screen screen)
-	{
-		System.out.println("inside Abstract Screen");
 	}
 
 	@Override

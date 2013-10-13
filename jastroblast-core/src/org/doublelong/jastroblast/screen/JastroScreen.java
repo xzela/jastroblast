@@ -39,11 +39,11 @@ public class JastroScreen extends AbstractScreen
 
 	public boolean debug = false;
 
-	public JastroScreen(JastroBlast game, boolean debug)
+	public JastroScreen(JastroBlast game)
 	{
 		super(game);
 		// define the pixels
-		this.debug = debug;
+		this.debug = JastroBlast.DEBUG;
 		this.ppuX = game.WINDOW_WIDTH / Space.WIDTH;
 		this.ppuY = game.WINDOW_HEIGHT / Space.HEIGHT;
 
@@ -140,5 +140,4 @@ public class JastroScreen extends AbstractScreen
 		// TODO Auto-generated method stub
 		this.space.dispose();
 	}
-
 }

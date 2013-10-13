@@ -1,15 +1,11 @@
 package org.doublelong.jastroblast.screen;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.doublelong.jastroblast.JastroBlast;
 import org.doublelong.jastroblast.controller.MenuController;
-import org.doublelong.jastroblast.entity.MenuButton;
+import org.doublelong.jastroblast.entity.CreditsMenu;
 import org.doublelong.jastroblast.loaders.TextureManager;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -30,40 +26,11 @@ public class CreditsScreen extends AbstractScreen
 		super(game);
 		this.game = game;
 		this.stage = new Stage();
-		this.table = new Table();
 		this.logo = new Image(JastroBlast.manager.get(TextureManager.LOGO, Texture.class));
 		this.cursor = new Image(JastroBlast.manager.get(TextureManager.MENU_CURSOR, Texture.class));
 
-
-		this.initializeTable();
-	}
-
-	private List<MenuButton> initalizeMenuElements()
-	{
-		List<MenuButton> list = new ArrayList<MenuButton>();
-		{
-			list.add(new MenuButton("Back!", new MainScreen(this.game)));
-		}
-		return list;
-	}
-
-	private void initializeTable()
-	{
-		this.table.setFillParent(true);
-
-		for(MenuButton button : this.menu.elements)
-		{
-			this.table.add(button.render()).left();
-			this.table.row();
-		}
-	}
-
-	public void select(Screen screen)
-	{
-		if (screen != null)
-		{
-			this.game.setScreen(screen);
-		}
+		this.menu = new CreditsMenu(this.game, this.cursor);
+		this.table = this.menu.getTable();
 	}
 
 	@Override
@@ -72,7 +39,7 @@ public class CreditsScreen extends AbstractScreen
 		this.stage.addActor(this.table);
 		this.stage.addActor(this.logo);
 		this.stage.addActor(this.cursor);
-		Gdx.input.setInputProcessor(new MenuController(this));
+		Gdx.input.setInputProcessor(new MenuController(this.menu));
 	}
 
 	@Override

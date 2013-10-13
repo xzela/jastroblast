@@ -24,6 +24,7 @@ public class MainScreen extends AbstractScreen
 	private Image logo;
 	private Music menuMusic;
 	private Table table;
+	@Override
 	public Menu getMenu() { return this.menu; }
 	private Image cursor;
 
@@ -59,7 +60,7 @@ public class MainScreen extends AbstractScreen
 		this.stage.addActor(this.table);
 		this.stage.addActor(this.logo);
 		this.stage.addActor(this.cursor);
-		Gdx.input.setInputProcessor(new MenuController(this));
+		Gdx.input.setInputProcessor(new MenuController(this.menu));
 
 	}
 
@@ -99,15 +100,5 @@ public class MainScreen extends AbstractScreen
 		}
 		this.menuMusic.stop();
 		this.game.setScreen(screen);
-	}
-
-	@Override
-	public void selectScreen(Screen screen)
-	{
-		System.out.println("inside Main Screen");
-		if (screen != null)
-		{
-			this.fadeToScreen(screen);
-		}
 	}
 }

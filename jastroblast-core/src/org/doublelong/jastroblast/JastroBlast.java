@@ -13,6 +13,7 @@ public class JastroBlast extends Game
 	public final int WINDOW_HEIGHT = 600;
 
 	public static AssetManager manager = new AssetManager();
+	public static final boolean DEBUG = true;
 
 	@Override
 	public void create()

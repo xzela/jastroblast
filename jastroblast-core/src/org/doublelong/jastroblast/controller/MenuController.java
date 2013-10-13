@@ -1,17 +1,17 @@
 package org.doublelong.jastroblast.controller;
 
 import org.doublelong.jastroblast.Inputs;
-import org.doublelong.jastroblast.screen.AbstractScreen;
+import org.doublelong.jastroblast.entity.Menu;
 
 import com.badlogic.gdx.InputProcessor;
 
 public class MenuController implements InputProcessor
 {
-	private AbstractScreen screen;
+	private Menu menu;
 
-	public MenuController(AbstractScreen screen)
+	public MenuController(Menu menu)
 	{
-		this.screen = screen;
+		this.menu = menu;
 	}
 
 	@Override
@@ -19,15 +19,15 @@ public class MenuController implements InputProcessor
 		switch(keycode)
 		{
 		case Inputs.MENU_UP:
-			this.screen.menu.moveUp();
-			this.screen.menu.updateCursor();
+			this.menu.moveUp();
+			this.menu.updateCursor();
 			break;
 		case Inputs.MENU_DOWN:
-			this.screen.menu.moveDown();
-			this.screen.menu.updateCursor();
+			this.menu.moveDown();
+			this.menu.updateCursor();
 			break;
 		case Inputs.MENU_SELECT:
-			this.screen.selectScreen(this.screen.menu.getCurrentScreen());
+			this.menu.selectScreen(this.menu.elements.get(this.menu.currentMenuIndex).getClazz());
 			break;
 		}
 		return false;
