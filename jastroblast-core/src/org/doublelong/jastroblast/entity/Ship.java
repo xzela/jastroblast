@@ -1,95 +1,67 @@
 package org.doublelong.jastroblast.entity;
 
-import java.util.List;
-
-import org.doublelong.jastroblast.controller.ShipController;
-import org.doublelong.jastroblast.renderer.ShipRenderer;
-
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class Ship
 {
-	private final Space space;
-	public Space getSpace() { return this.space; }
-
-	public final float SCALE = .5f;
-
 	// TODO fix Height/Width, should be associated with the sprite
-	private static final float WIDTH = 100f;
-	private static final float HEIGHT = 76f;
+	private static final float WIDTH = 50f;
+	private static final float HEIGHT = 50f;
 
-	private Vector2 position;
-	public Vector2 getPosition() {return this.position; }
-	public void setPosition(Vector2 position) { this.position = position;}
+	private final World world;
 
-	private Rectangle bounds;
-	public Rectangle getBounds() { return this.bounds;}
-	public void setBounds(Rectangle bounds) { this.bounds = bounds; }
+	private final Body body;
+	public Body getBody() { return this.body; }
 
-	public ShipRenderer renderer;
-	public ShipController controller;
+	private BodyDef bodyDef = new BodyDef();
 
-	private float rotation = 0;
-	public float getRotation() { return this.rotation; }
-	public void setRotation(float rotation) { this.rotation = rotation;}
+	private final Fixture fixture;
+	public Fixture getFixture() { return this.fixture; }
 
-	private Vector2 acceleration = new Vector2();
-	public Vector2 getAcceleration() { return this.acceleration; }
-	public void setAcceleration(Vector2 acceleration) { this.acceleration = acceleration; }
+	private final FixtureDef fixtureDef = new FixtureDef();
 
-	private Vector2 velocity = new Vector2();
-	public Vector2 getVelocity() { return this.velocity; }
-	public void setVelocity(Vector2 velocity) { this.velocity = velocity; }
+	private final PolygonShape shape = new PolygonShape();
 
-	public Ship(Space space, Vector2 position)
+
+	public Ship(World world, Vector2 position)
 	{
-		this.space = space;
-		this.position = position;
-		this.bounds = new Rectangle(this.position.x, this.position.y, Ship.WIDTH, Ship.HEIGHT);
+		this.world = world;
 
-		this.renderer = new ShipRenderer(this);
-		this.controller = new ShipController(this.space);
+		this.bodyDef.type = BodyType.DynamicBody;
+		this.bodyDef.position.set(position);
+
+		this.shape.setAsBox(WIDTH, HEIGHT);
+
+		this.fixtureDef.shape = this.shape;
+		this.fixtureDef.density = 5f;
+		this.fixtureDef.friction = 0;
+		this.fixtureDef.restitution = 1f;
+
+		this.body = this.world.createBody(this.bodyDef);
+		this.body.setGravityScale(.2f);
+
+		this.fixture = this.body.createFixture(this.fixtureDef);
 	}
 
 	public void render(SpriteBatch batch, OrthographicCamera cam)
 	{
-		this.renderer.render(batch, cam);
 	}
 
 	public void update(float delta)
 	{
-		this.controller.update(delta);
-		if(this.rotation > 360)
-		{
-			this.rotation = 0;
-		}
-		if(this.rotation < 0)
-		{
-			this.rotation = 360;
-		}
 
-		List<Asteroid> list = this.space.getAsteroids();
-		for (Asteroid a: list)
-		{
-
-			//if(Intersector.intersectRectangles(this.space.getShip().renderer.hb, a.renderer.hb))
-			if(false)
-			{
-				//System.out.println("Hitting astroid");
-				a.renderer.debugHit = true;
-			}
-			else
-			{
-				a.renderer.debugHit = false;
-			}
-		}
 	}
 
 	public void dispose()
 	{
-		this.renderer.dispose();
 	}
 }

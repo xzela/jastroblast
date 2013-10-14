@@ -1,6 +1,6 @@
 package org.doublelong.jastroblast;
 
-import org.doublelong.jastroblast.screen.LoadingScreen;
+import org.doublelong.jastroblast.screen.JastroScreen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
@@ -19,6 +19,6 @@ public class JastroBlast extends Game
 	public void create()
 	{
 		Texture.setEnforcePotImages(false);
-		this.setScreen(new LoadingScreen(this));
+		this.setScreen(new JastroScreen(this));
 	}
 }

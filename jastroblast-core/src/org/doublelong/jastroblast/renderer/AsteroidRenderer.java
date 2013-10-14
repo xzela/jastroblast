@@ -141,23 +141,23 @@ public class AsteroidRenderer extends BaseRenderer
 
 	private void wrap()
 	{
-		if(this.asteroid.getPosition().x < -this.sprite.getWidth())
-		{
-			this.asteroid.getPosition().x = this.asteroid.getSpace().viewport.width + this.sprite.getWidth() / 2;
-		}
-		else if (this.asteroid.getPosition().x > this.asteroid.getSpace().viewport.width + this.sprite.getWidth() - 10)
-		{
-			this.asteroid.getPosition().x = 0 - this.sprite.getWidth() / 2;
-		}
-
-		if (this.asteroid.getPosition().y < -this.sprite.getHeight())
-		{
-			this.asteroid.getPosition().y = this.asteroid.getSpace().viewport.height - 1;
-		}
-		else if(this.asteroid.getPosition().y > this.asteroid.getSpace().viewport.height)
-		{
-			this.asteroid.getPosition().y = 0 - this.sprite.getHeight();
-		}
+		//		if(this.asteroid.getPosition().x < -this.sprite.getWidth())
+		//		{
+		//			this.asteroid.getPosition().x = this.asteroid.getSpace().viewport.width + this.sprite.getWidth() / 2;
+		//		}
+		//		else if (this.asteroid.getPosition().x > this.asteroid.getSpace().viewport.width + this.sprite.getWidth() - 10)
+		//		{
+		//			this.asteroid.getPosition().x = 0 - this.sprite.getWidth() / 2;
+		//		}
+		//
+		//		if (this.asteroid.getPosition().y < -this.sprite.getHeight())
+		//		{
+		//			this.asteroid.getPosition().y = this.asteroid.getSpace().viewport.height - 1;
+		//		}
+		//		else if(this.asteroid.getPosition().y > this.asteroid.getSpace().viewport.height)
+		//		{
+		//			this.asteroid.getPosition().y = 0 - this.sprite.getHeight();
+		//		}
 	}
 	public void dispose()
 	{

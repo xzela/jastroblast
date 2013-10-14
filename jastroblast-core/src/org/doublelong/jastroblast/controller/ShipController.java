@@ -32,21 +32,21 @@ public class ShipController
 	{
 		this.processInput(delta);
 
-		// add the velocity to the position
-		this.setMaxVelocities();
-		this.space.getShip().getPosition().add(this.space.getShip().getVelocity());
-
-
-		// "frame-time!"
-		this.space.getShip().getVelocity().mul(delta);
-
-		// dampen the x and y velocity by a fixed amount (to add slowing effect)
-		this.space.getShip().getVelocity().x *= DAMP;
-		this.space.getShip().getVelocity().y *= DAMP;
-
-		this.space.getShip().getVelocity().mul(1 / delta);
-
-		this.space.getShip().renderer.sprite.setPosition(this.space.getShip().getPosition().x, this.space.getShip().getPosition().y);
+		//		// add the velocity to the position
+		//		this.setMaxVelocities();
+		//		this.space.getShip().getPosition().add(this.space.getShip().getVelocity());
+		//
+		//
+		//		// "frame-time!"
+		//		this.space.getShip().getVelocity().mul(delta);
+		//
+		//		// dampen the x and y velocity by a fixed amount (to add slowing effect)
+		//		this.space.getShip().getVelocity().x *= DAMP;
+		//		this.space.getShip().getVelocity().y *= DAMP;
+		//
+		//		this.space.getShip().getVelocity().mul(1 / delta);
+		//
+		//		this.space.getShip().renderer.sprite.setPosition(this.space.getShip().getPosition().x, this.space.getShip().getPosition().y);
 
 		//this.wrap();
 	}
@@ -54,77 +54,77 @@ public class ShipController
 	public void processInput(float delta)
 	{
 		// calculate x and y scales (this will give the x/y equivalent of the angle)
-		double scale_x = Math.cos(this.space.getShip().getRotation() * SPEED * delta);
-		double scale_y = Math.sin(this.space.getShip().getRotation() * SPEED * delta);
-
-		if(keys.get(Keys.LEFT))
-		{
-			this.space.getShip().setRotation(this.space.getShip().getRotation() + 1.5f);
-		}
-		else if(keys.get(Keys.RIGHT))
-		{
-			this.space.getShip().setRotation(this.space.getShip().getRotation() - 1.5f);
-		}
-
-		if(keys.get(Keys.DOWN))
-		{
-			// delta times scale gives velocity
-			this.space.getShip().getVelocity().y -= scale_x * delta;
-			this.space.getShip().getVelocity().x -= -scale_y * delta;
-		}
-		else if(keys.get(Keys.UP))
-		{
-			this.space.getShip().getVelocity().y += scale_x * delta;
-			this.space.getShip().getVelocity().x += -scale_y * delta;
-		}
+		//		double scale_x = Math.cos(this.space.getShip().getRotation() * SPEED * delta);
+		//		double scale_y = Math.sin(this.space.getShip().getRotation() * SPEED * delta);
+		//
+		//		if(keys.get(Keys.LEFT))
+		//		{
+		//			this.space.getShip().setRotation(this.space.getShip().getRotation() + 1.5f);
+		//		}
+		//		else if(keys.get(Keys.RIGHT))
+		//		{
+		//			this.space.getShip().setRotation(this.space.getShip().getRotation() - 1.5f);
+		//		}
+		//
+		//		if(keys.get(Keys.DOWN))
+		//		{
+		//			// delta times scale gives velocity
+		//			this.space.getShip().getVelocity().y -= scale_x * delta;
+		//			this.space.getShip().getVelocity().x -= -scale_y * delta;
+		//		}
+		//		else if(keys.get(Keys.UP))
+		//		{
+		//			this.space.getShip().getVelocity().y += scale_x * delta;
+		//			this.space.getShip().getVelocity().x += -scale_y * delta;
+		//		}
 	}
 
 	private void setMaxVelocities()
 	{
-		// test x velocity
-		if (this.space.getShip().getVelocity().x > MAX_VELOCITY)
-		{
-			this.space.getShip().getVelocity().x = MAX_VELOCITY;
-		}
-		if (this.space.getShip().getVelocity().x < -MAX_VELOCITY)
-		{
-			this.space.getShip().getVelocity().x = -MAX_VELOCITY;
-		}
-
-		// test y velocity
-		if (this.space.getShip().getVelocity().y > MAX_VELOCITY)
-		{
-			this.space.getShip().getVelocity().y = MAX_VELOCITY;
-		}
-		if (this.space.getShip().getVelocity().y < -MAX_VELOCITY)
-		{
-			this.space.getShip().getVelocity().y = -MAX_VELOCITY;
-		}
+		//		// test x velocity
+		//		if (this.space.getShip().getVelocity().x > MAX_VELOCITY)
+		//		{
+		//			this.space.getShip().getVelocity().x = MAX_VELOCITY;
+		//		}
+		//		if (this.space.getShip().getVelocity().x < -MAX_VELOCITY)
+		//		{
+		//			this.space.getShip().getVelocity().x = -MAX_VELOCITY;
+		//		}
+		//
+		//		// test y velocity
+		//		if (this.space.getShip().getVelocity().y > MAX_VELOCITY)
+		//		{
+		//			this.space.getShip().getVelocity().y = MAX_VELOCITY;
+		//		}
+		//		if (this.space.getShip().getVelocity().y < -MAX_VELOCITY)
+		//		{
+		//			this.space.getShip().getVelocity().y = -MAX_VELOCITY;
+		//		}
 
 	}
 
 	private void wrap()
 	{
 		// check the viewport width
+		//		//
+		//		if(this.space.getShip().getPosition().x < -this.space.getShip().renderer.sprite.getWidth())
+		//		{
+		//			this.space.getShip().getPosition().x = this.space.viewport.width + this.space.getShip().renderer.sprite.getWidth() / 2;
+		//		}
+		//		else if (this.space.getShip().getPosition().x > this.space.viewport.width + this.space.getShip().renderer.sprite.getWidth() - 10)
+		//		{
+		//			this.space.getShip().getPosition().x = 0 - this.space.getShip().renderer.sprite.getWidth() / 2;
+		//		}
 		//
-		if(this.space.getShip().getPosition().x < -this.space.getShip().renderer.sprite.getWidth())
-		{
-			this.space.getShip().getPosition().x = this.space.viewport.width + this.space.getShip().renderer.sprite.getWidth() / 2;
-		}
-		else if (this.space.getShip().getPosition().x > this.space.viewport.width + this.space.getShip().renderer.sprite.getWidth() - 10)
-		{
-			this.space.getShip().getPosition().x = 0 - this.space.getShip().renderer.sprite.getWidth() / 2;
-		}
-
-		// check the viewport height
-		if (this.space.getShip().getPosition().y < -this.space.getShip().renderer.sprite.getHeight())
-		{
-			this.space.getShip().getPosition().y = this.space.viewport.height;
-		}
-		else if(this.space.getShip().getPosition().y > this.space.viewport.height)
-		{
-			this.space.getShip().getPosition().y = 0 - this.space.getShip().renderer.sprite.getHeight();
-		}
+		//		// check the viewport height
+		//		if (this.space.getShip().getPosition().y < -this.space.getShip().renderer.sprite.getHeight())
+		//		{
+		//			this.space.getShip().getPosition().y = this.space.viewport.height;
+		//		}
+		//		else if(this.space.getShip().getPosition().y > this.space.viewport.height)
+		//		{
+		//			this.space.getShip().getPosition().y = 0 - this.space.getShip().renderer.sprite.getHeight();
+		//		}
 	}
 
 	public void leftPressed() { keys.get(keys.put(Keys.LEFT, true)); }
