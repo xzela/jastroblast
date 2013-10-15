@@ -33,6 +33,7 @@ public class MainScreen extends AbstractScreen
 		@Override
 		public void run()
 		{
+			System.out.println("MainScreen Runnable run");
 			menuMusic.stop();
 			ScreenManager.getInstance().show(Screens.GAME);
 		}
@@ -59,7 +60,7 @@ public class MainScreen extends AbstractScreen
 		this.stage.addActor(this.table);
 		this.stage.addActor(this.logo);
 		this.stage.addActor(this.cursor);
-		Gdx.input.setInputProcessor(new MenuController(this.menu));
+		Gdx.input.setInputProcessor(new MenuController(this, this.menu));
 
 	}
 
@@ -91,6 +92,7 @@ public class MainScreen extends AbstractScreen
 	 */
 	public void fadeToScreen()
 	{
+		System.out.println("MainScreen fadeToScreen:");
 		// race condition!
 		this.logo.addAction(Actions.sequence(Actions.fadeOut(1.75f), Actions.run(this.onMenuFinish)));
 		if (this.menuMusic.getVolume() > 0)
@@ -98,5 +100,12 @@ public class MainScreen extends AbstractScreen
 			this.menuMusic.setVolume(this.menuMusic.getVolume() - 0.01f);
 		}
 		this.menuMusic.stop();
+	}
+
+	@Override
+	public void transitionScreen()
+	{
+		System.out.println("MainScreen loadScreen:");
+		this.fadeToScreen();
 	}
 }

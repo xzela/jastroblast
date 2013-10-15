@@ -11,4 +11,10 @@ public class QuitScreen extends AbstractScreen
 	{
 		Gdx.app.exit();
 	}
+
+	@Override
+	public void transitionScreen()
+	{
+		// TODO Auto-generated method stub
+	}
 }

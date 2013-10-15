@@ -3,6 +3,8 @@ package org.doublelong.jastroblast.screen;
 import org.doublelong.jastroblast.JastroBlast;
 import org.doublelong.jastroblast.controller.MenuController;
 import org.doublelong.jastroblast.entity.CreditsMenu;
+import org.doublelong.jastroblast.entity.Screens;
+import org.doublelong.jastroblast.managers.ScreenManager;
 import org.doublelong.jastroblast.managers.TextureManager;
 
 import com.badlogic.gdx.Gdx;
@@ -35,7 +37,7 @@ public class CreditsScreen extends AbstractScreen
 		this.stage.addActor(this.table);
 		this.stage.addActor(this.logo);
 		this.stage.addActor(this.cursor);
-		Gdx.input.setInputProcessor(new MenuController(this.menu));
+		Gdx.input.setInputProcessor(new MenuController(this, this.menu));
 	}
 
 	@Override
@@ -56,5 +58,12 @@ public class CreditsScreen extends AbstractScreen
 		this.stage.act();
 		this.stage.draw();
 		this.menu.updateCursor();
+	}
+
+	@Override
+	public void transitionScreen()
+	{
+		// TODO Auto-generated method stub
+		ScreenManager.getInstance().show(Screens.GAME);
 	}
 }

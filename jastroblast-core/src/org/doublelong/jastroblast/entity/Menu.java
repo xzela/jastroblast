@@ -71,7 +71,7 @@ public abstract class Menu
 		return this.currentMenuIndex == this.elements.size() - 1;
 	}
 
-	public void selectScreen(Screens screen)
+	public void showScreen(Screens screen)
 	{
 		ScreenManager.getInstance().show(screen);
 	}

@@ -13,6 +13,9 @@ public abstract class AbstractScreen implements Screen
 	{
 	}
 
+	public abstract void transitionScreen();
+
+
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub

@@ -87,4 +87,10 @@ public class JastroScreen extends AbstractScreen
 		// TODO Auto-generated method stub
 		this.space.dispose();
 	}
+
+	@Override
+	public void transitionScreen() {
+		// TODO Auto-generated method stub
+
+	}
 }

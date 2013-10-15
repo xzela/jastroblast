@@ -85,9 +85,15 @@ public class LoadingScreen extends AbstractScreen
 
 			if(JastroBlast.manager.update())
 			{
-				this.logo.addAction(Actions.sequence(Actions.fadeOut(.75f), Actions.run(this.onLoadingFinish)));
-				//this.game.setScreen(new MenuScreen(this.game));
+				this.transitionScreen();
 			}
 		}
+	}
+
+	@Override
+	public void transitionScreen()
+	{
+		// TODO Auto-generated method stub
+		this.logo.addAction(Actions.sequence(Actions.fadeOut(.75f), Actions.run(this.onLoadingFinish)));
 	}
 }
