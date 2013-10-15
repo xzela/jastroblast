@@ -1,8 +1,7 @@
 package org.doublelong.jastroblast.entity;
 
 import org.doublelong.jastroblast.JastroBlast;
-import org.doublelong.jastroblast.loaders.FontManager;
-import org.doublelong.jastroblast.screen.Screens;
+import org.doublelong.jastroblast.managers.FontManager;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;

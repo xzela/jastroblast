@@ -3,8 +3,6 @@ package org.doublelong.jastroblast.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.doublelong.jastroblast.screen.Screens;
-
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 

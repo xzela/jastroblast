@@ -1,11 +1,12 @@
 package org.doublelong.jastroblast.screen;
 
 import org.doublelong.jastroblast.JastroBlast;
-import org.doublelong.jastroblast.ScreenManager;
-import org.doublelong.jastroblast.loaders.FontManager;
+import org.doublelong.jastroblast.entity.Screens;
 import org.doublelong.jastroblast.loaders.FreeTypeFontAssetLoader;
-import org.doublelong.jastroblast.loaders.SoundManager;
-import org.doublelong.jastroblast.loaders.TextureManager;
+import org.doublelong.jastroblast.managers.FontManager;
+import org.doublelong.jastroblast.managers.ScreenManager;
+import org.doublelong.jastroblast.managers.SoundManager;
+import org.doublelong.jastroblast.managers.TextureManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;

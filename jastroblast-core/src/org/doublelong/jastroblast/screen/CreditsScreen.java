@@ -3,7 +3,7 @@ package org.doublelong.jastroblast.screen;
 import org.doublelong.jastroblast.JastroBlast;
 import org.doublelong.jastroblast.controller.MenuController;
 import org.doublelong.jastroblast.entity.CreditsMenu;
-import org.doublelong.jastroblast.loaders.TextureManager;
+import org.doublelong.jastroblast.managers.TextureManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;

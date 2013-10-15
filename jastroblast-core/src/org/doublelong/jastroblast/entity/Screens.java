@@ -1,4 +1,10 @@
-package org.doublelong.jastroblast.screen;
+package org.doublelong.jastroblast.entity;
+
+import org.doublelong.jastroblast.screen.CreditsScreen;
+import org.doublelong.jastroblast.screen.JastroScreen;
+import org.doublelong.jastroblast.screen.LoadingScreen;
+import org.doublelong.jastroblast.screen.MainScreen;
+import org.doublelong.jastroblast.screen.QuitScreen;
 
 import com.badlogic.gdx.Screen;
 
@@ -38,8 +44,7 @@ public enum Screens
 		{
 			return new QuitScreen();
 		}
-	}
-	;
+	};
 
 	public abstract Screen getScreenInstance();
 }

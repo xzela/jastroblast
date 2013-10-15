@@ -1,4 +1,4 @@
-package org.doublelong.jastroblast.loaders;
+package org.doublelong.jastroblast.managers;
 
 public class SoundManager
 {

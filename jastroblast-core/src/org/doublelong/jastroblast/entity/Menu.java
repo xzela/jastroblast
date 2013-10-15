@@ -2,10 +2,10 @@ package org.doublelong.jastroblast.entity;
 
 import java.util.List;
 
-import org.doublelong.jastroblast.ScreenManager;
+import org.doublelong.jastroblast.managers.ScreenManager;
 import org.doublelong.jastroblast.screen.AbstractScreen;
-import org.doublelong.jastroblast.screen.Screens;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -74,6 +74,11 @@ public abstract class Menu
 	public void selectScreen(Screens screen)
 	{
 		ScreenManager.getInstance().show(screen);
+	}
+
+	public Screen getScreen(Screens screen)
+	{
+		return ScreenManager.getInstance().get(screen);
 	}
 
 	protected void initializeTable()

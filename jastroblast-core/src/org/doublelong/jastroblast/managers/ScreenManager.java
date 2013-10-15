@@ -1,6 +1,7 @@
-package org.doublelong.jastroblast;
+package org.doublelong.jastroblast.managers;
 
-import org.doublelong.jastroblast.screen.Screens;
+import org.doublelong.jastroblast.JastroBlast;
+import org.doublelong.jastroblast.entity.Screens;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.IntMap;
@@ -26,11 +27,21 @@ public final class ScreenManager
 		return instance;
 	}
 
+	/**
+	 * Initializes the game property
+	 * 
+	 * @param game
+	 */
 	public void initialize(JastroBlast game)
 	{
 		this.game = game;
 	}
 
+	/**
+	 * Tells the game to switch screens
+	 * 
+	 * @param screen
+	 */
 	public void show(Screens screen)
 	{
 		if (null == game)
@@ -42,6 +53,15 @@ public final class ScreenManager
 			screens.put(screen.ordinal(), screen.getScreenInstance());
 		}
 		this.game.setScreen(screens.get(screen.ordinal()));
+	}
+
+	public Screen get(Screens screen)
+	{
+		if (!screens.containsKey(screen.ordinal()))
+		{
+			screens.put(screen.ordinal(), screen.getScreenInstance());
+		}
+		return screens.get(screen.ordinal());
 	}
 
 	public void dispose(Screens screen)

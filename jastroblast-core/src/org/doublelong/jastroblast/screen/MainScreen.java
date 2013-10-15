@@ -1,15 +1,15 @@
 package org.doublelong.jastroblast.screen;
 
 import org.doublelong.jastroblast.JastroBlast;
-import org.doublelong.jastroblast.ScreenManager;
 import org.doublelong.jastroblast.controller.MenuController;
 import org.doublelong.jastroblast.entity.MainMenu;
 import org.doublelong.jastroblast.entity.Menu;
-import org.doublelong.jastroblast.loaders.SoundManager;
-import org.doublelong.jastroblast.loaders.TextureManager;
+import org.doublelong.jastroblast.entity.Screens;
+import org.doublelong.jastroblast.managers.ScreenManager;
+import org.doublelong.jastroblast.managers.SoundManager;
+import org.doublelong.jastroblast.managers.TextureManager;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.Texture;
@@ -34,6 +34,7 @@ public class MainScreen extends AbstractScreen
 		public void run()
 		{
 			menuMusic.stop();
+			ScreenManager.getInstance().show(Screens.GAME);
 		}
 	};
 
@@ -88,7 +89,7 @@ public class MainScreen extends AbstractScreen
 	 * 
 	 * @param screen
 	 */
-	private void fadeToScreen(Screen screen)
+	public void fadeToScreen()
 	{
 		// race condition!
 		this.logo.addAction(Actions.sequence(Actions.fadeOut(1.75f), Actions.run(this.onMenuFinish)));
@@ -97,6 +98,5 @@ public class MainScreen extends AbstractScreen
 			this.menuMusic.setVolume(this.menuMusic.getVolume() - 0.01f);
 		}
 		this.menuMusic.stop();
-		ScreenManager.getInstance().show(Screens.GAME);
 	}
 }

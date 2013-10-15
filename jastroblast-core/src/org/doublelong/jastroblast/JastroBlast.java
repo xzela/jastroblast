@@ -1,6 +1,7 @@
 package org.doublelong.jastroblast;
 
-import org.doublelong.jastroblast.screen.Screens;
+import org.doublelong.jastroblast.entity.Screens;
+import org.doublelong.jastroblast.managers.ScreenManager;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
