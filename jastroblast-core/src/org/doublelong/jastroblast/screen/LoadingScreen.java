@@ -1,6 +1,7 @@
 package org.doublelong.jastroblast.screen;
 
 import org.doublelong.jastroblast.JastroBlast;
+import org.doublelong.jastroblast.ScreenManager;
 import org.doublelong.jastroblast.loaders.FontManager;
 import org.doublelong.jastroblast.loaders.FreeTypeFontAssetLoader;
 import org.doublelong.jastroblast.loaders.SoundManager;
@@ -25,16 +26,16 @@ public class LoadingScreen extends AbstractScreen
 	Runnable onLoadingFinish = new Runnable()
 	{
 		@Override
-		public void run() {
+		public void run()
+		{
 			// TODO Auto-generated method stub
-			game.setScreen(new MainScreen(game));
+			ScreenManager.getInstance().show(Screens.MAIN);
 		}
 
 	};
 
-	public LoadingScreen(JastroBlast game)
+	public LoadingScreen()
 	{
-		super(game);
 		this.stage = new Stage();
 		this.load();
 	}

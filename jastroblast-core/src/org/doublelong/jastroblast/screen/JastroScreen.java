@@ -42,20 +42,19 @@ public class JastroScreen extends AbstractScreen
 	public static final float BOX_TO_WORLD = 100f;
 	public static float convertToWorld(float x) { return x * BOX_TO_WORLD;}
 
-	public JastroScreen(JastroBlast game)
+	public JastroScreen()
 	{
-		super(game);
 		// define the pixels
 		this.debug = JastroBlast.DEBUG;
 		this.batch = new SpriteBatch();
 
 		this.camera = new OrthographicCamera();
-		this.camera.viewportHeight = this.game.WINDOW_HEIGHT;
-		this.camera.viewportWidth = this.game.WINDOW_WIDTH;
+		this.camera.viewportHeight = JastroBlast.WINDOW_HEIGHT;
+		this.camera.viewportWidth = JastroBlast.WINDOW_WIDTH;
 		this.camera.position.set(this.camera.viewportWidth / 2, this.camera.viewportHeight / 2 , 0f);
 
 
-		this.space = new Space(this.game, this.camera, this.debug);
+		this.space = new Space(this.camera, this.debug);
 
 		this.boxDebugRenderer = new Box2DDebugRenderer();
 

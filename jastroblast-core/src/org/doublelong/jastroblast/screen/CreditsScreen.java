@@ -14,22 +14,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class CreditsScreen extends AbstractScreen
 {
-	private JastroBlast game;
-
 	private Stage stage;
 	private Image logo;
 	private Table table;
 	private Image cursor;
 
-	public CreditsScreen(JastroBlast game)
+	public CreditsScreen()
 	{
-		super(game);
-		this.game = game;
 		this.stage = new Stage();
 		this.logo = new Image(JastroBlast.manager.get(TextureManager.LOGO, Texture.class));
 		this.cursor = new Image(JastroBlast.manager.get(TextureManager.MENU_CURSOR, Texture.class));
 
-		this.menu = new CreditsMenu(this.game, this.cursor);
+		this.menu = new CreditsMenu(this.cursor);
 		this.table = this.menu.getTable();
 	}
 

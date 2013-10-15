@@ -27,7 +27,7 @@ public class MenuController implements InputProcessor
 			this.menu.updateCursor();
 			break;
 		case Inputs.MENU_SELECT:
-			this.menu.selectScreen(this.menu.elements.get(this.menu.currentMenuIndex).getClazz());
+			this.menu.selectScreen(this.menu.elements.get(this.menu.currentMenuIndex).getScreen());
 			break;
 		}
 		return false;

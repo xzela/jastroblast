@@ -1,6 +1,7 @@
 package org.doublelong.jastroblast.screen;
 
 import org.doublelong.jastroblast.JastroBlast;
+import org.doublelong.jastroblast.ScreenManager;
 import org.doublelong.jastroblast.controller.MenuController;
 import org.doublelong.jastroblast.entity.MainMenu;
 import org.doublelong.jastroblast.entity.Menu;
@@ -20,7 +21,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 public class MainScreen extends AbstractScreen
 {
 	private Stage stage;
-	private JastroBlast game;
 	private Image logo;
 	private Music menuMusic;
 	private Table table;
@@ -37,10 +37,8 @@ public class MainScreen extends AbstractScreen
 		}
 	};
 
-	public MainScreen(JastroBlast game)
+	public MainScreen()
 	{
-		super(game);
-		this.game = game;
 		this.menuMusic = JastroBlast.manager.get(SoundManager.MENU_MUSIC, Music.class);
 		this.menuMusic.setLooping(true);
 		this.menuMusic.play();
@@ -48,7 +46,7 @@ public class MainScreen extends AbstractScreen
 		this.logo = new Image(JastroBlast.manager.get(TextureManager.LOGO, Texture.class));
 		this.cursor = new Image(JastroBlast.manager.get(TextureManager.MENU_CURSOR, Texture.class));
 
-		this.menu = new MainMenu(this.game, this.cursor);
+		this.menu = new MainMenu(this.cursor);
 		this.table = this.menu.getTable();
 	}
 
@@ -99,6 +97,6 @@ public class MainScreen extends AbstractScreen
 			this.menuMusic.setVolume(this.menuMusic.getVolume() - 0.01f);
 		}
 		this.menuMusic.stop();
-		this.game.setScreen(screen);
+		ScreenManager.getInstance().show(Screens.GAME);
 	}
 }

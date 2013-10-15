@@ -3,19 +3,16 @@ package org.doublelong.jastroblast.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.doublelong.jastroblast.JastroBlast;
+import org.doublelong.jastroblast.screen.Screens;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class CreditsMenu extends Menu
 {
-	private JastroBlast game;
-
-	public CreditsMenu(JastroBlast game, Actor cursor)
+	public CreditsMenu( Actor cursor)
 	{
-		super(game, cursor);
-		this.game = game;
+		super(cursor);
 		this.table = new Table();
 		this.elements = this.loadMenuItems();
 
@@ -26,7 +23,7 @@ public class CreditsMenu extends Menu
 	{
 		List<MenuButton> list = new ArrayList<MenuButton>();
 		{
-			list.add(new MenuButton("Back!", "org.doublelong.jastroblast.screen.MainScreen"));
+			list.add(new MenuButton("Back!", Screens.MAIN));
 		}
 		return list;
 	}

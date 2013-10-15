@@ -1,7 +1,5 @@
 package org.doublelong.jastroblast.entity;
 
-import org.doublelong.jastroblast.JastroBlast;
-
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -16,12 +14,10 @@ public class Space
 
 	private final Ship ship;
 
-	private final JastroBlast game;
 	private final boolean debug;
 
-	public Space(JastroBlast game, OrthographicCamera camera, boolean debug)
+	public Space(OrthographicCamera camera, boolean debug)
 	{
-		this.game = game;
 		this.debug = debug;
 		this.world = new World(GRAVITY, true); // no gravity
 		this.ship = new Ship(world, new Vector2(camera.viewportWidth / 2, camera.viewportHeight / 2));

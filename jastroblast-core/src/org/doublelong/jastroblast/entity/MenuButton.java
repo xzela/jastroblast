@@ -2,6 +2,7 @@ package org.doublelong.jastroblast.entity;
 
 import org.doublelong.jastroblast.JastroBlast;
 import org.doublelong.jastroblast.loaders.FontManager;
+import org.doublelong.jastroblast.screen.Screens;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -15,16 +16,16 @@ public class MenuButton
 	private String text;
 	public String getText() { return this.text;}
 
-	private String clazz;
-	public String getClazz() { return this.clazz; }
+	private Screens screen;
+	public Screens getScreen() { return this.screen; }
 
 	private BitmapFont font;
 	private Color color;
 
-	public MenuButton(String text, String clazz)
+	public MenuButton(String text, Screens screen)
 	{
 		this.text = text;
-		this.clazz = clazz;
+		this.screen = screen;
 		this.font = JastroBlast.manager.get(FontManager.BLOCK_FONT, BitmapFont.class);
 		this.color = Color.RED;
 	}
