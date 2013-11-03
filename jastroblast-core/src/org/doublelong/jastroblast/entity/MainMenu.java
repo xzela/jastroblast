@@ -22,7 +22,7 @@ public class MainMenu extends Menu
 		List<MenuButton> list = new ArrayList<MenuButton>();
 		{
 			list.add(new MenuButton("Play!", Screens.GAME));
-			list.add(new MenuButton("Options", null));
+			//list.add(new MenuButton("Options", null));
 			list.add(new MenuButton("Credits", Screens.CREDITS));
 			list.add(new MenuButton("Quit", Screens.QUIT));
 		}

@@ -44,7 +44,6 @@ public class JastroScreen extends AbstractScreen
 
 	public JastroScreen()
 	{
-		// define the pixels
 		this.debug = JastroBlast.DEBUG;
 		this.batch = new SpriteBatch();
 
@@ -55,9 +54,7 @@ public class JastroScreen extends AbstractScreen
 
 
 		this.space = new Space(this.camera, this.debug);
-
 		this.boxDebugRenderer = new Box2DDebugRenderer();
-
 	}
 
 	@Override

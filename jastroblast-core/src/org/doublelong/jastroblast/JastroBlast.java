@@ -21,7 +21,8 @@ public class JastroBlast extends Game
 	{
 		ScreenManager.getInstance().initialize(this);
 		Texture.setEnforcePotImages(false);
-		ScreenManager.getInstance().show(Screens.LOADING);
+		//		ScreenManager.getInstance().show(Screens.LOADING);
+		ScreenManager.getInstance().show(Screens.GAME);
 	}
 
 	@Override
