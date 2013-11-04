@@ -3,9 +3,14 @@ package org.doublelong.jastroblast.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.doublelong.jastroblast.entity.Space;
+import org.doublelong.jastroblast.Inputs;
+import org.doublelong.jastroblast.entity.Ship;
 
-public class ShipController
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.math.Vector2;
+
+public class ShipController extends InputAdapter
 {
 	private static final float DAMP = .991f;
 	private static final float MAX_VELOCITY = 2.5f;
@@ -21,11 +26,11 @@ public class ShipController
 		keys.put(Keys.DOWN, false);
 	}
 
-	private final Space space;
+	private final Ship ship;
 
-	public ShipController(Space space)
+	public ShipController(Ship ship)
 	{
-		this.space = space;
+		this.ship = ship;
 	}
 
 	public void update(float delta)
@@ -53,90 +58,45 @@ public class ShipController
 
 	public void processInput(float delta)
 	{
-		// calculate x and y scales (this will give the x/y equivalent of the angle)
-		//		double scale_x = Math.cos(this.space.getShip().getRotation() * SPEED * delta);
-		//		double scale_y = Math.sin(this.space.getShip().getRotation() * SPEED * delta);
-		//
-		//		if(keys.get(Keys.LEFT))
-		//		{
-		//			this.space.getShip().setRotation(this.space.getShip().getRotation() + 1.5f);
-		//		}
-		//		else if(keys.get(Keys.RIGHT))
-		//		{
-		//			this.space.getShip().setRotation(this.space.getShip().getRotation() - 1.5f);
-		//		}
-		//
-		//		if(keys.get(Keys.DOWN))
-		//		{
-		//			// delta times scale gives velocity
-		//			this.space.getShip().getVelocity().y -= scale_x * delta;
-		//			this.space.getShip().getVelocity().x -= -scale_y * delta;
-		//		}
-		//		else if(keys.get(Keys.UP))
-		//		{
-		//			this.space.getShip().getVelocity().y += scale_x * delta;
-		//			this.space.getShip().getVelocity().x += -scale_y * delta;
-		//		}
+		Vector2 velocity = this.ship.getBody().getLinearVelocity();
+		float angle =  this.ship.getBody().getAngle();
+		Vector2 desiredVelocity = new Vector2();
+		Vector2 worldCenter = this.ship.getBody().getWorldCenter();
+		Vector2 localCenter = this.ship.getBody().getLocalCenter();
+
+		if(this.isLeftThrust())
+		{
+			this.ship.getBody().applyLinearImpulse(new Vector2(0,-500), localCenter, true);
+		}
+
+		if(this.isRightThrust())
+		{
+			this.ship.getBody().applyLinearImpulse(new Vector2(0,500), localCenter, true);
+		}
+
+		if (this.isForwardThrust())
+		{
+			float x = (float) Math.cos(angle * delta);
+			float y = (float) Math.sin(angle * delta);
+			desiredVelocity.add(velocity.x * x, 500 * y);
+			this.ship.getBody().applyLinearImpulse(new Vector2(0,2500), worldCenter, true);
+		}
+		this.ship.getBody().setAngularDamping(0.5f);
+		this.ship.getBody().setLinearDamping(0.5f);
 	}
 
-	private void setMaxVelocities()
+	private boolean isForwardThrust()
 	{
-		//		// test x velocity
-		//		if (this.space.getShip().getVelocity().x > MAX_VELOCITY)
-		//		{
-		//			this.space.getShip().getVelocity().x = MAX_VELOCITY;
-		//		}
-		//		if (this.space.getShip().getVelocity().x < -MAX_VELOCITY)
-		//		{
-		//			this.space.getShip().getVelocity().x = -MAX_VELOCITY;
-		//		}
-		//
-		//		// test y velocity
-		//		if (this.space.getShip().getVelocity().y > MAX_VELOCITY)
-		//		{
-		//			this.space.getShip().getVelocity().y = MAX_VELOCITY;
-		//		}
-		//		if (this.space.getShip().getVelocity().y < -MAX_VELOCITY)
-		//		{
-		//			this.space.getShip().getVelocity().y = -MAX_VELOCITY;
-		//		}
-
+		return Gdx.input.isKeyPressed(Inputs.PLAYER_THRUST);
 	}
 
-	private void wrap()
+	private boolean isRightThrust()
 	{
-		// check the viewport width
-		//		//
-		//		if(this.space.getShip().getPosition().x < -this.space.getShip().renderer.sprite.getWidth())
-		//		{
-		//			this.space.getShip().getPosition().x = this.space.viewport.width + this.space.getShip().renderer.sprite.getWidth() / 2;
-		//		}
-		//		else if (this.space.getShip().getPosition().x > this.space.viewport.width + this.space.getShip().renderer.sprite.getWidth() - 10)
-		//		{
-		//			this.space.getShip().getPosition().x = 0 - this.space.getShip().renderer.sprite.getWidth() / 2;
-		//		}
-		//
-		//		// check the viewport height
-		//		if (this.space.getShip().getPosition().y < -this.space.getShip().renderer.sprite.getHeight())
-		//		{
-		//			this.space.getShip().getPosition().y = this.space.viewport.height;
-		//		}
-		//		else if(this.space.getShip().getPosition().y > this.space.viewport.height)
-		//		{
-		//			this.space.getShip().getPosition().y = 0 - this.space.getShip().renderer.sprite.getHeight();
-		//		}
+		return Gdx.input.isKeyPressed(Inputs.PLAYER_RIGHT);
 	}
 
-	public void leftPressed() { keys.get(keys.put(Keys.LEFT, true)); }
-	public void leftReleased() { keys.get(keys.put(Keys.LEFT, false)); }
-
-	public void rightPressed() { keys.get(keys.put(Keys.RIGHT, true)); }
-	public void rightReleased() { keys.get(keys.put(Keys.RIGHT, false)); }
-
-	public void upPressed() { keys.get(keys.put(Keys.UP, true)); }
-	public void upReleased() { keys.get(keys.put(Keys.UP, false)); }
-
-	public void downPressed() { keys.get(keys.put(Keys.DOWN, true)); }
-	public void downReleased() { keys.get(keys.put(Keys.DOWN, false)); }
-
+	private boolean isLeftThrust()
+	{
+		return Gdx.input.isKeyPressed(Inputs.PLAYER_LEFT);
+	}
 }

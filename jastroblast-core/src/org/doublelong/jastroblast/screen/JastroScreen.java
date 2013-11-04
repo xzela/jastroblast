@@ -1,6 +1,7 @@
 package org.doublelong.jastroblast.screen;
 
 import org.doublelong.jastroblast.JastroBlast;
+import org.doublelong.jastroblast.controller.ShipController;
 import org.doublelong.jastroblast.entity.Space;
 
 import com.badlogic.gdx.Gdx;
@@ -42,6 +43,8 @@ public class JastroScreen extends AbstractScreen
 	public static final float BOX_TO_WORLD = 100f;
 	public static float convertToWorld(float x) { return x * BOX_TO_WORLD;}
 
+	public ShipController shipController;
+
 	public JastroScreen()
 	{
 		this.debug = JastroBlast.DEBUG;
@@ -50,11 +53,12 @@ public class JastroScreen extends AbstractScreen
 		this.camera = new OrthographicCamera();
 		this.camera.viewportHeight = JastroBlast.WINDOW_HEIGHT;
 		this.camera.viewportWidth = JastroBlast.WINDOW_WIDTH;
-		this.camera.position.set(this.camera.viewportWidth / 2, this.camera.viewportHeight / 2 , 0f);
+		this.camera.position.set(this.camera.viewportWidth / 2, this.camera.viewportHeight / 2 , 0);
 
 
 		this.space = new Space(this.camera, this.debug);
 		this.boxDebugRenderer = new Box2DDebugRenderer();
+		this.shipController = new ShipController(this.space.getShip());
 	}
 
 	@Override
@@ -70,12 +74,15 @@ public class JastroScreen extends AbstractScreen
 		this.space.render(this.batch, this.camera);
 		this.space.getWorld().step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
 
+		Gdx.input.setInputProcessor(this.shipController);
+
 		this.update(delta);
 	}
 
 	public void update(float delta)
 	{
 		this.space.update(delta);
+		this.shipController.update(delta);
 	}
 
 	@Override

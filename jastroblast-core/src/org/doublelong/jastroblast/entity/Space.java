@@ -13,6 +13,7 @@ public class Space
 	public World getWorld() { return this.world; }
 
 	private final Ship ship;
+	public Ship getShip() { return this.ship; }
 
 	private final boolean debug;
 
@@ -30,7 +31,7 @@ public class Space
 
 	public void update(float delta)
 	{
-
+		this.ship.update(delta);
 	}
 
 	public void dispose()

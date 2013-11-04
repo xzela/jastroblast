@@ -37,6 +37,7 @@ public class Ship
 
 	private final PolygonShape shape = new PolygonShape();
 
+	//	private ShipController controller;
 
 	public Ship(World world, Vector2 position)
 	{
@@ -56,31 +57,28 @@ public class Ship
 		left.restitution =1f;
 
 		FixtureDef fuselage = new FixtureDef();
-
-		fuselage.shape = this.makeFuselage();
-		fuselage.density = 5f;
-		fuselage.friction = 0;
-		fuselage.restitution = 1f;
-
+		{
+			fuselage.shape = this.makeFuselage();
+			fuselage.density = 5f;
+			fuselage.friction = 0.9f;
+			fuselage.restitution = 1f;
+		}
 
 		FixtureDef rightWing = new FixtureDef();
-		rightWing.shape = this.makeRightWing(this.body.getLocalCenter());
-		rightWing.density = 5f;
-		rightWing.friction = 0;
-		rightWing.restitution = 1f;
+		{
+			rightWing.shape = this.makeRightWing(this.body.getLocalCenter());
+			rightWing.density = 5f;
+			rightWing.friction = 0.9f;
+			rightWing.restitution = 1f;
+		}
 
 		FixtureDef leftWing = new FixtureDef();
-		leftWing.shape = this.makeLeftWing(this.body.getLocalCenter());
-		leftWing.density = 5f;
-		leftWing.friction = 0;
-		leftWing.restitution = 1f;
-		//		this.fixtureDef.shape = this.shape;
-		//		this.fixtureDef.density = 5f;
-		//		this.fixtureDef.friction = 0;
-		//		this.fixtureDef.restitution = 1f;
-
-
-
+		{
+			leftWing.shape = this.makeLeftWing(this.body.getLocalCenter());
+			leftWing.density = 5f;
+			leftWing.friction = 0.9f;
+			leftWing.restitution = 1f;
+		}
 		this.body.setGravityScale(.2f);
 
 		//		this.body.createFixture(left);
@@ -89,6 +87,8 @@ public class Ship
 		this.body.createFixture(leftWing);
 
 		this.fixtures = this.body.getFixtureList();
+
+		//		this.controller = new ShipController(this);
 	}
 
 	public void render(SpriteBatch batch, OrthographicCamera cam)
@@ -97,7 +97,7 @@ public class Ship
 
 	public void update(float delta)
 	{
-
+		//		this.controller.update(delta);
 	}
 
 	public void dispose()
@@ -125,7 +125,6 @@ public class Ship
 
 	private PolygonShape makeRightWing(Vector2 bodyCenter)
 	{
-		System.out.println(bodyCenter);
 		float offset = 2;
 		PolygonShape shape = new PolygonShape();
 		Vector2[] wing = new Vector2[4];
