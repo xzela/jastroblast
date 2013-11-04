@@ -1,5 +1,7 @@
 package org.doublelong.jastroblast.controller;
 
+import static java.lang.Math.PI;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,7 +61,7 @@ public class ShipController extends InputAdapter
 	public void processInput(float delta)
 	{
 		Vector2 velocity = this.ship.getBody().getLinearVelocity();
-		float angle =  this.ship.getBody().getAngle();
+		float angle =  (float) Math.toDegrees(this.ship.getBody().getAngle()) + 90; //add 90 degress because it's pointing up!
 		Vector2 desiredVelocity = new Vector2();
 		Vector2 worldCenter = this.ship.getBody().getWorldCenter();
 		Vector2 localCenter = this.ship.getBody().getLocalCenter();
@@ -78,11 +80,13 @@ public class ShipController extends InputAdapter
 		{
 			float x = (float) Math.cos(angle * delta);
 			float y = (float) Math.sin(angle * delta);
-			desiredVelocity.add(velocity.x * x, 500 * y);
-			this.ship.getBody().applyLinearImpulse(new Vector2(0,2500), worldCenter, true);
+			desiredVelocity.x = x * 5000;
+			desiredVelocity.y = y * 5000;
+			//desiredVelocity.add(velocity.x * x, 5000 * y);
+			this.ship.getBody().applyLinearImpulse(desiredVelocity, worldCenter, true);
 		}
 		this.ship.getBody().setAngularDamping(0.5f);
-		this.ship.getBody().setLinearDamping(0.5f);
+		this.ship.getBody().setLinearDamping(0.1f);
 	}
 
 	private boolean isForwardThrust()
@@ -98,5 +102,11 @@ public class ShipController extends InputAdapter
 	private boolean isLeftThrust()
 	{
 		return Gdx.input.isKeyPressed(Inputs.PLAYER_LEFT);
+	}
+
+	private double normalRelativeAngle(double angle)
+	{
+		double TWO_PI = 2 * PI;
+		return (angle %= TWO_PI) >= 0 ? (angle < PI) ? angle : angle - TWO_PI : (angle >= -PI) ? angle : angle + TWO_PI;
 	}
 }
