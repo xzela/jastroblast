@@ -1,7 +1,5 @@
 package org.doublelong.jastroblast.controller;
 
-import static java.lang.Math.PI;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +25,8 @@ public class ShipController extends InputAdapter
 		keys.put(Keys.UP, false);
 		keys.put(Keys.DOWN, false);
 	}
+
+	public Ship getShip() { return this.ship; }
 
 	private final Ship ship;
 
@@ -61,28 +61,30 @@ public class ShipController extends InputAdapter
 	public void processInput(float delta)
 	{
 		Vector2 velocity = this.ship.getBody().getLinearVelocity();
-		float angle =  (float) Math.toDegrees(this.ship.getBody().getAngle()) + 90; //add 90 degress because it's pointing up!
+		float angle =  (float) Math.toDegrees(this.ship.getBody().getAngle()) / 60; //add 90 degress because it's pointing up!
+		System.out.println(angle);
 		Vector2 desiredVelocity = new Vector2();
 		Vector2 worldCenter = this.ship.getBody().getWorldCenter();
 		Vector2 localCenter = this.ship.getBody().getLocalCenter();
 
 		if(this.isLeftThrust())
 		{
-			this.ship.getBody().applyLinearImpulse(new Vector2(0,-500), localCenter, true);
+			this.ship.getBody().applyLinearImpulse(new Vector2(0,-Ship.SPEED), localCenter, true);
 		}
 
 		if(this.isRightThrust())
 		{
-			this.ship.getBody().applyLinearImpulse(new Vector2(0,500), localCenter, true);
+			this.ship.getBody().applyLinearImpulse(new Vector2(0, Ship.SPEED), localCenter, true);
 		}
 
 		if (this.isForwardThrust())
 		{
-			float x = (float) Math.cos(angle * delta);
-			float y = (float) Math.sin(angle * delta);
-			desiredVelocity.x = x * 5000;
-			desiredVelocity.y = y * 5000;
-			//desiredVelocity.add(velocity.x * x, 5000 * y);
+			float y = (float) Math.cos(angle) * Ship.SPEED;
+			float x = (float) Math.sin(angle) * Ship.SPEED;
+			desiredVelocity.x = x * Ship.RAITO * -1;
+			desiredVelocity.y = y * Ship.RAITO;
+			//			desiredVelocity.x += velocity.x;
+			//			desiredVelocity.y += velocity.y;
 			this.ship.getBody().applyLinearImpulse(desiredVelocity, worldCenter, true);
 		}
 		this.ship.getBody().setAngularDamping(0.5f);
@@ -102,11 +104,5 @@ public class ShipController extends InputAdapter
 	private boolean isLeftThrust()
 	{
 		return Gdx.input.isKeyPressed(Inputs.PLAYER_LEFT);
-	}
-
-	private double normalRelativeAngle(double angle)
-	{
-		double TWO_PI = 2 * PI;
-		return (angle %= TWO_PI) >= 0 ? (angle < PI) ? angle : angle - TWO_PI : (angle >= -PI) ? angle : angle + TWO_PI;
 	}
 }

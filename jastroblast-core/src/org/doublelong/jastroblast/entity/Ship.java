@@ -18,7 +18,8 @@ public class Ship
 	private static final float WIDTH = 50f;
 	private static final float HEIGHT = 50f;
 
-	private static final float RAITO = 20f;
+	public static final float RAITO = 10f;
+	public static final float SPEED = 100f;
 
 	private final World world;
 

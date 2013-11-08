@@ -2,6 +2,7 @@ package org.doublelong.jastroblast.screen;
 
 import org.doublelong.jastroblast.JastroBlast;
 import org.doublelong.jastroblast.controller.ShipController;
+import org.doublelong.jastroblast.entity.Hud;
 import org.doublelong.jastroblast.entity.Space;
 
 import com.badlogic.gdx.Gdx;
@@ -45,6 +46,8 @@ public class JastroScreen extends AbstractScreen
 
 	public ShipController shipController;
 
+	private Hud hud;
+
 	public JastroScreen()
 	{
 		this.debug = JastroBlast.DEBUG;
@@ -59,6 +62,7 @@ public class JastroScreen extends AbstractScreen
 		this.space = new Space(this.camera, this.debug);
 		this.boxDebugRenderer = new Box2DDebugRenderer();
 		this.shipController = new ShipController(this.space.getShip());
+		this.hud = new Hud(this.space);
 	}
 
 	@Override
@@ -72,6 +76,8 @@ public class JastroScreen extends AbstractScreen
 		this.boxDebugRenderer.render(this.space.getWorld(), this.camera.combined);
 
 		this.space.render(this.batch, this.camera);
+		this.hud.render(this.batch, this.camera);
+
 		this.space.getWorld().step(BOX_STEP, BOX_VELOCITY_ITERATIONS, BOX_POSITION_ITERATIONS);
 
 		Gdx.input.setInputProcessor(this.shipController);
@@ -83,6 +89,7 @@ public class JastroScreen extends AbstractScreen
 	{
 		this.space.update(delta);
 		this.shipController.update(delta);
+		this.hud.update(delta);
 	}
 
 	@Override
